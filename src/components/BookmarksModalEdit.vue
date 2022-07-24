@@ -84,10 +84,10 @@ async function submit() {
 
 <template>
   <ion-toolbar id="new-bookmark-toolbar">
-    <ion-title id="new-bookmark-title" class="ion-text-center">Edit Bookmark</ion-title>
+    <ion-title id="new-bookmark-title">Edit Bookmark</ion-title>
     <ion-button
       id="button-submit"
-      slot="end"
+      slot="primary"
       fill="clear"
       color="primary"
       @click="submit()"
@@ -95,7 +95,7 @@ async function submit() {
     >
     <ion-button
       id="button-cancel"
-      slot="start"
+      slot="secondary"
       fill="clear"
       color="danger"
       @click="closeModal()"
@@ -109,8 +109,7 @@ async function submit() {
         <ion-input
           id="bookmark-name-input"
           v-model.trim="bookmarkForm.bookmarkName.value"
-          placeholder="Bookmark Name"
-        ></ion-input>
+          placeholder="Bookmark Name"></ion-input>
         <span id="bookmark-name-error-container">
           <ion-text id="bookmark-name-error" color="danger" class="error-text">{{
             bookmarkForm.bookmarkNameError.value
@@ -123,8 +122,7 @@ async function submit() {
         <ion-input
           id="bookmark-url-input"
           v-model.trim="bookmarkForm.bookmarkUrl.value"
-          placeholder="Bookmark Url"
-        ></ion-input>
+          placeholder="Bookmark Url"></ion-input>
         <span id="bookmark-url-error-container">
           <ion-text id="bookmark-url-error" color="danger" class="error-text">{{
             bookmarkForm.bookmarkUrlError.value
@@ -138,8 +136,7 @@ async function submit() {
           id="bookmark-tag-input"
           v-model.trim="bookmarkForm.bookmarkTag.value"
           placeholder="Add Tag"
-          @keyup.enter="pushTag"
-        ></ion-input>
+          @keyup.enter="pushTag"></ion-input>
         <span id="bookmark-tag-error-container">
           <ion-text id="bookmark-tag-error" color="danger" class="error-text">{{
             bookmarkForm.bookmarkTagError.value
@@ -152,14 +149,12 @@ async function submit() {
         v-for="(tag, tagIndex) in bookmark.tags"
         id="tag"
         :key="tagIndex"
-        color="primary"
-      >
+        color="primary">
         <ion-label id="tag-chip-label">{{ tag }}</ion-label>
         <ion-icon
           id="tag-chip-icon"
           :icon="closeCircleOutline"
-          @click.stop="removeTag(tagIndex)"
-        ></ion-icon>
+          @click.stop="removeTag(tagIndex)"></ion-icon>
       </ion-chip>
     </ion-item>
   </ion-content>
