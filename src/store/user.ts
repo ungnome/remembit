@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 import { auth, signInWithEmailAndPassword, signOut } from '../services/firebase';
 
-interface UserState {
+type UserState = {
   isLoggedIn: boolean;
   name: string | null;
   email: string | null;
   uid: string | null;
-}
+};
 
+// store
 export const useUserStore = defineStore('user', {
   state: (): UserState => {
     return {
