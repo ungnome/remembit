@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import TheReloadPrompt from './components/TheReloadPrompt.vue';
+import { useSettings } from './store/settings';
+
+// load the user store
+const settings = useSettings();
+
+// load app settings
+settings.load();
+
+// persist settings when they change
+settings.$subscribe(() => {
+  settings.save();
+});
 </script>
 
 <template>

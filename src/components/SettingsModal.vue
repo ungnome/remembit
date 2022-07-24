@@ -7,8 +7,8 @@
   </ion-toolbar>
   <ion-content>
     <ion-list inset>
-      <ion-radio-group :value="theme">
-        <ion-list-header>Appearance</ion-list-header>
+      <ion-radio-group :value="settings.theme" @ion-change="handleThemeChange">
+        <ion-list-header>Theme</ion-list-header>
         <ion-item>
           <ion-icon class="ion-margin-end" :icon="sunnyOutline"></ion-icon>
           <ion-label>Light</ion-label>
@@ -43,13 +43,19 @@ import {
   IonLabel,
   IonRadio,
   IonRadioGroup,
-  IonIcon
+  IonIcon,
+  RadioGroupCustomEvent
 } from '@ionic/vue';
 import { sunnyOutline, moonOutline, phonePortraitOutline } from 'ionicons/icons';
 import { modalController } from '@ionic/vue';
-import { ref } from 'vue';
+import { useSettings } from '../store/settings';
 
-const theme = ref('light');
+// load settings store
+const settings = useSettings();
+
+function handleThemeChange(event: RadioGroupCustomEvent) {
+  settings.theme = event.detail.value;
+}
 
 function close() {
   modalController.dismiss();
