@@ -15,6 +15,7 @@ import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons
 import { ref, defineProps, computed } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
 import BookmarksModalEdit from '../components/BookmarksModalEdit.vue';
+import { useModalControls } from '../composables/modalControls';
 
 // Props
 const props = defineProps({
@@ -34,18 +35,7 @@ const bookmark = computed(() => {
   }) as Bookmark;
 });
 
-const editModalAttrs = {
-  isOpen: ref(false),
-  breakpoints: [0, 0.25, 0.5, 0.75, 1],
-  initialBreakbpoint: 0.75
-};
-
-function showEditModal() {
-  editModalAttrs.isOpen.value = true;
-}
-function dismissEditModal() {
-  editModalAttrs.isOpen.value = false;
-}
+const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1]);
 
 function deleteBookmark() {
   bookmarksStore.deleteBookmark(bookmark.value);
@@ -57,9 +47,8 @@ function openBookmark(url: string) {
 </script>
 
 <template>
-  <!-- <ion-item :href="bookmark.url" target="_blank" rel="noopener" :detail="false"> -->
-  <ion-item button :detail="false">
-    <ion-label @click="openBookmark(bookmark.url)">
+  <ion-item :href="bookmark.url" target="_blank" rel="noopener" :detail="false">
+    <ion-label>
       <h2>{{ bookmark.name }}</h2>
       <ion-chip v-for="tag in bookmark.tags" :key="bookmark.tags.indexOf(tag)" disabled>
         {{ tag }}
@@ -71,38 +60,33 @@ function openBookmark(url: string) {
         :id="`options-menu-button-${bookmark.id}`"
         shape="round"
         fill="clear"
-        @click.prevent=""
-      >
+        @click.prevent="">
         <ion-icon :icon="ellipsisHorizontalOutline"></ion-icon>
 
         <!-- Options Menu -->
         <ion-popover
           :dismiss-on-select="true"
-          :trigger="`options-menu-button-${bookmark.id}`"
-        >
-          <ion-list lines="none">
-            <ion-item button :detail="false" @click="showEditModal()">
+          :trigger="`options-menu-button-${bookmark.id}`">
+          <ion-list>
+            <ion-item button :detail="false" @click.prevent="editModal.toggle()">
               <ion-icon
-                slot="start"
-                size="small"
+                class="ion-margin-end"
                 color="primary"
-                :icon="pencilOutline"
-              ></ion-icon>
-              <ion-label>
-                <ion-text color="primary"> Edit </ion-text>
-              </ion-label>
+                :icon="pencilOutline"></ion-icon>
+              <ion-label color="primary"> Edit </ion-label>
             </ion-item>
 
-            <ion-item button :detail="false" @click="deleteBookmark()">
+            <ion-item
+              button
+              lines="none"
+              :detail="false"
+              @click.prevent="deleteBookmark()">
               <ion-icon
-                slot="start"
+                class="ion-margin-end"
                 size="small"
                 color="danger"
-                :icon="trashOutline"
-              ></ion-icon>
-              <ion-label>
-                <ion-text color="danger"> Delete </ion-text>
-              </ion-label>
+                :icon="trashOutline"></ion-icon>
+              <ion-label color="danger"> Delete </ion-label>
             </ion-item>
           </ion-list>
         </ion-popover>
@@ -110,11 +94,10 @@ function openBookmark(url: string) {
     >
   </ion-item>
   <ion-modal
-    :is-open="editModalAttrs.isOpen.value"
-    :breakpoints="editModalAttrs.breakpoints"
-    :initial-breakpoint="editModalAttrs.initialBreakbpoint"
-    @will-dismiss="dismissEditModal()"
-  >
+    :is-open="editModal.isOpen.value"
+    :breakpoints="editModal.breakPoints"
+    :initial-breakpoint="editModal.initialBreakPoint"
+    @will-dismiss="editModal.toggle()">
     <BookmarksModalEdit :bookmark-id="props.bookmarkId" />
   </ion-modal>
 </template>
