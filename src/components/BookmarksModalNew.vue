@@ -2,6 +2,7 @@
 import {
   IonContent,
   IonButton,
+  IonButtons,
   modalController,
   IonInput,
   IonItem,
@@ -79,22 +80,16 @@ async function submit() {
 <template>
   <ion-toolbar id="new-bookmark-toolbar">
     <ion-title id="new-bookmark-title">New Bookmark</ion-title>
-    <ion-button
-      id="button-submit"
-      slot="primary"
-      fill="clear"
-      color="primary"
-      @click="submit()"
-      >Save</ion-button
-    >
-    <ion-button
-      id="button-cancel"
-      slot="secondary"
-      fill="clear"
-      color="danger"
-      @click="closeModal()"
-      >Cancel</ion-button
-    >
+    <ion-buttons slot="primary">
+      <ion-button id="button-submit" fill="clear" color="primary" @click="submit()">
+        Save
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button id="button-cancel" fill="clear" color="danger" @click="closeModal()">
+        Cancel
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-content class="ion-padding">
     <form id="new-bookmark-form">
