@@ -12,7 +12,7 @@ import {
   IonModal
 } from '@ionic/vue';
 import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
-import { ref, defineProps, computed } from 'vue';
+import { unref, defineProps, computed } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
 import BookmarksModalEdit from '../components/BookmarksModalEdit.vue';
 import { useModalControls } from '../composables/modalControls';

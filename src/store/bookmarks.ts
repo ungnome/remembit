@@ -40,8 +40,20 @@ const useBookmarks = defineStore('bookmarks', {
       return supabase.from('bookmark').update(updates).match({ id: bookmark.id });
     },
 
-    deleteBookmark(bookmark: Bookmark) {
-      return supabase.from('bookmark').delete().match({ id: bookmark.id });
+    async deleteBookmark(bookmark: Bookmark) {
+      console.log('deleting bookmark');
+      const { data, error } = await supabase
+        .from('bookmark')
+        .delete()
+        .match({ id: bookmark.id });
+      if (error) {
+        console.error(error);
+      }
+
+      if (data) {
+        console.log('fetching bookmarks');
+        this.fetchBookmarks();
+      }
     },
 
     async fetchBookmarks() {

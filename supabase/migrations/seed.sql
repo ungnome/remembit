@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS "public"."bookmark_timestamp" (
     "bookmark_id" uuid NOT NULL,
     "created" timestamptz NOT NULL DEFAULT now(),
     "updated" timestamptz NOT NULL DEFAULT now(),
-    CONSTRAINT "bookmark_timestamp_bookmark_id_fkey" FOREIGN KEY ("bookmark_id") REFERENCES "public"."bookmark"("id"),
+    CONSTRAINT "bookmark_timestamp_bookmark_id_fkey" FOREIGN KEY ("bookmark_id") REFERENCES "public"."bookmark"("id") ON DELETE CASCADE,
     PRIMARY KEY ("id")
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "public"."user_profile" (
 	"avatar_uri" text DEFAULT NULL,
 	"given_name" text DEFAULT NULL,
 	"surname" text DEFAULT NULL ,
-	CONSTRAINT "user_profile_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id"),
+	CONSTRAINT "user_profile_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE CASCADE,
 	PRIMARY KEY ("id")
 	
 );
