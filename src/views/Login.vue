@@ -20,16 +20,16 @@ import {
   ErrorMessage as VeeError
 } from 'vee-validate';
 import { object, string } from 'yup';
-import { useUserStore } from '../store/user';
+import { useUser } from '../store/user';
 import { useRouter } from 'vue-router';
 
-// Get User Store
-const userStore = useUserStore();
-
-// Get Router
+// init
+const user = useUser();
 const router = useRouter();
+const isLoading = ref(false);
+const loginForm = ref<InstanceType<typeof HTMLFormElement>>();
 
-// Form data / Validation
+// form data and validation
 const email = ref('');
 const password = ref('');
 const formValidationSchema = object({
@@ -38,24 +38,33 @@ const formValidationSchema = object({
 });
 const noValidate = false;
 
-// Template Refs
-const loginForm = ref<InstanceType<typeof HTMLFormElement>>();
-
-function handleSubmit() {
+// functions
+async function handleSubmit() {
   toggleIsLoading();
-  userStore.loginUser(email.value, password.value).then(() => {
-    if (loginForm.value) {
-      loginForm.value.resetForm();
-      toggleIsLoading();
-      router.push({ name: 'Bookmarks' });
-    }
-  });
-}
+  const { session, error } = await user.login(email.value, password.value);
 
-const isLoading = ref(false);
+  if (session) {
+    toggleIsLoading();
+    router.push({ name: 'Neocortex' });
+  }
+
+  if (error) {
+    toggleIsLoading();
+    console.log(error);
+  }
+}
 
 function toggleIsLoading() {
   isLoading.value = !isLoading.value;
+}
+
+function showRegister() {
+  const mode = import.meta.env.MODE;
+  return mode === 'development' ? true : false;
+}
+
+function handleRegister() {
+  user.register(email.value, password.value);
 }
 </script>
 
@@ -71,8 +80,7 @@ function toggleIsLoading() {
             id="login-form"
             ref="loginForm"
             :validation-schema="formValidationSchema"
-            @submit="handleSubmit"
-          >
+            @submit="handleSubmit">
             <ion-item id="email-container">
               <ion-label id="email-label" position="floating">Email</ion-label>
               <VeeField
@@ -86,8 +94,7 @@ function toggleIsLoading() {
                 autocomplete="email"
                 :validate-on-change="false"
                 :validate-on-blur="false"
-                :validate-on-model-update="false"
-              >
+                :validate-on-model-update="false">
               </VeeField>
             </ion-item>
             <VeeError v-slot="{ message }" name="email">
@@ -107,8 +114,7 @@ function toggleIsLoading() {
                 autocomplete="current-password"
                 :validate-on-change="noValidate"
                 :validate-on-blur="noValidate"
-                :validate-on-model-update="noValidate"
-              >
+                :validate-on-model-update="noValidate">
               </VeeField>
             </ion-item>
             <VeeError v-slot="{ message }" name="password">
@@ -117,18 +123,23 @@ function toggleIsLoading() {
             <ion-button
               class="ion-margin-top ion-text-capitalize"
               expand="block"
-              type="submit"
-            >
+              type="submit">
               Submit
             </ion-button>
           </VeeForm>
+          <ion-button
+            v-if="showRegister()"
+            class="ion-margin-top ion-text-capitalize"
+            expand="block"
+            @click="handleRegister()">
+            Register
+          </ion-button>
         </ion-card-content>
       </ion-card>
       <ion-loading
         id="submitting-indicator"
         :is-open="isLoading"
-        message="Logging in..."
-      ></ion-loading>
+        message="Logging in..."></ion-loading>
     </div>
   </ion-page>
 </template>

@@ -4,10 +4,8 @@ import TheReloadPrompt from './components/TheReloadPrompt.vue';
 import { useSettings } from './store/settings';
 import { useThemeController } from './composables/themeController';
 
-// load the user store
+// init
 const settings = useSettings();
-
-// init theme controller
 const themeController = useThemeController();
 
 // load app settings
@@ -26,7 +24,6 @@ settings.$subscribe(() => {
 </script>
 
 <template>
-  k
   <ion-app>
     <ion-router-outlet />
   </ion-app>

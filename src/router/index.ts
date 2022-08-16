@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import { useUserStore } from '../store/user';
+import { useUser } from '../store/user';
 
 // Import Views (lazy load)
 const Tabs = () => import('../views/Tabs.vue');
@@ -59,9 +59,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  const userStore = useUserStore();
+  const user = useUser();
   if (to.meta.requiresAuth) {
-    if (!userStore.isLoggedIn) {
+    if (!user.isLoggedIn) {
       return { name: 'Login' };
     } else {
       return true;

@@ -21,7 +21,8 @@ import { useModalControls } from '../composables/modalControls';
 
 // bookmarks store
 const bookmarkStore = useBookmarks();
-bookmarkStore.initializeBookmarksListner();
+
+bookmarkStore.fetchBookmarks();
 
 // new bookmark modal
 const newBookmarkModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1]);

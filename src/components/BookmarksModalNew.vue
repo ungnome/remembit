@@ -71,6 +71,7 @@ async function submit() {
 
   if (formIsValid) {
     bookmarksStore.createBookmark(newBookmark).then(() => {
+      bookmarksStore.fetchBookmarks();
       closeModal();
     });
   }
