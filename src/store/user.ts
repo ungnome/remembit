@@ -34,8 +34,10 @@ export const useUser = defineStore('user', {
     },
 
     refresh() {
+      // check for existing session
       const user = supabase.auth.user();
 
+      // if there is an existing session, set state accordingly
       if (user) {
         this.isLoggedIn = true;
         this.id = user.id;

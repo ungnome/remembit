@@ -25,14 +25,14 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
-import { useUser } from './store/user';
 
 // Create App and root store
 const app = createApp(App);
 const pinia = createPinia();
 app.use(pinia);
 
-// Refersh User state from local storage
+// Load user state
+import { useUser } from './store/user';
 const user = useUser();
 user.refresh();
 
