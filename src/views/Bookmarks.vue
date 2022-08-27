@@ -70,7 +70,7 @@ const searchResults = computed(() => {
         <BookmarkListEntry
           v-for="bookmark in searchResults"
           :key="bookmark.id"
-          :bookmark-id="bookmark.id" />
+          :bookmark-id="bookmark.id!" />
       </ion-list>
     </ion-content>
     <ion-modal
