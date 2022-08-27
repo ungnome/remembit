@@ -18,7 +18,6 @@ export function useThemeController() {
   }
 
   function updateTheme() {
-    console.log('refreshing theme.');
     switch (settings.theme) {
       case 'light':
         disableSystemTheme();

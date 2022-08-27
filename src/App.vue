@@ -2,13 +2,15 @@
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import TheReloadPrompt from './components/TheReloadPrompt.vue';
 import { useSettings } from './store/settings';
+import { useUser } from './store/user';
 import { useThemeController } from './composables/themeController';
+import { useRouter } from 'vue-router';
 
-// load the user store
+// init
+const user = useUser();
 const settings = useSettings();
-
-// init theme controller
 const themeController = useThemeController();
+const router = useRouter();
 
 // load app settings
 settings.load();
@@ -23,10 +25,14 @@ settings.$subscribe(() => {
 
   themeController.updateTheme();
 });
+
+// if user is already logged in, send to bookmarks
+if (user.isLoggedIn) {
+  router.push({ name: 'Bookmarks' });
+}
 </script>
 
 <template>
-  k
   <ion-app>
     <ion-router-outlet />
   </ion-app>

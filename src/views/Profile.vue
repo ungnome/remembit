@@ -84,14 +84,14 @@ import {
   IonText
 } from '@ionic/vue';
 import { settingsOutline, informationCircleOutline } from 'ionicons/icons';
-import { useUserStore } from '../store/user';
+import { useUser } from '../store/user';
 import { useRouter } from 'vue-router';
 import { useModalControls } from '../composables/modalControls';
 import SettingsModal from '../components/SettingsModal.vue';
 import PlaceholderVue from '../components/Placeholder.vue';
 
 // Init
-const userStore = useUserStore();
+const userStore = useUser();
 const router = useRouter();
 const presentingElement = document.getElementById('page-profile')!;
 
@@ -102,7 +102,7 @@ const accountModal = useModalControls(0.98, []);
 
 // Page Functions
 function handleLogout() {
-  userStore.logoutUser().then(() => {
+  userStore.logout().then(() => {
     router.push({ name: 'Login' });
   });
 }

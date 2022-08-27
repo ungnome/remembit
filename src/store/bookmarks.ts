@@ -1,43 +1,26 @@
 import { defineStore } from 'pinia';
-import { useUserStore } from './user';
-import { db } from '../services/firebase';
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc
-} from 'firebase/firestore';
-import merge from 'just-merge';
+import { supabase } from '../services/supabase';
 import pick from 'just-pick';
-import clone from 'just-clone';
 
-export { BookmarkNew, Bookmark, useBookmarks };
-
-interface Bookmark {
-  id: string;
+type Bookmark = {
+  id?: string;
   name: string;
   url: string;
   tags: Array<string>;
-  created: string;
-  updated: string;
-}
+  created?: string;
+  updated?: string;
+};
 
-interface BookmarksState {
+type BookmarksState = {
   bookmarks: Array<Bookmark>;
-}
+};
 
-interface BookmarkNew {
-  name: string;
-  url: string;
-  tags: Array<string>;
+function getRange(cursor: number) {
+  const limit = 2;
+  const from = cursor ? cursor + 1 : 0;
+  const to = from + limit;
+  return { from, to };
 }
-
-const bookmarksDb = collection(db, 'bookmarks');
-const userStore = useUserStore();
 
 const useBookmarks = defineStore('bookmarks', {
   state: (): BookmarksState => {
@@ -47,59 +30,69 @@ const useBookmarks = defineStore('bookmarks', {
   },
 
   actions: {
-    initializeBookmarksListner() {
-      const bookmarksQuery = query(bookmarksDb, where('owner', '==', userStore.uid));
-      return onSnapshot(bookmarksQuery, (snapshot) => {
-        this.bookmarks = snapshot.docs.map((doc) => {
-          const bookmark: Bookmark = {
-            id: doc.id,
-            name: doc.data().name,
-            url: doc.data().url,
-            tags: doc.data().tags,
-            created: doc.data().created,
-            updated: doc.data().updated
-          };
-
-          return bookmark;
-        });
-      });
+    createBookmark(bookmark: Bookmark) {
+      const newBookmark = pick(bookmark, ['name', 'url', 'tags']);
+      return supabase.from('bookmark').insert(newBookmark);
     },
 
-    createBookmark(newBookmark: BookmarkNew) {
-      return addDoc(bookmarksDb, merge(newBookmark, { owner: userStore.uid }));
+    updateBookmark(bookmark: Bookmark) {
+      const updates = pick(bookmark, ['name', 'url', 'tags']);
+      return supabase.from('bookmark').update(updates).match({ id: bookmark.id });
     },
 
-    updateBookmark(bookmarkUpdate: Bookmark) {
-      const updates = pick(bookmarkUpdate, ['name', 'url', 'tags']);
-      return updateDoc(doc(bookmarksDb, bookmarkUpdate.id), updates);
+    async deleteBookmark(bookmark: Bookmark) {
+      const { data, error } = await supabase
+        .from('bookmark')
+        .delete()
+        .match({ id: bookmark.id });
+      if (error) {
+        console.error(error);
+      }
+
+      if (data) {
+        this.fetchBookmarks();
+      }
     },
 
-    deleteBookmark(bookmark: Bookmark) {
-      return deleteDoc(doc(bookmarksDb, bookmark.id));
-    },
+    async fetchBookmarks() {
+      // get total number of bookmarks in db
+      const { count: totalRows } = await supabase
+        .from('bookmarks_view')
+        .select('*', { count: 'exact', head: true });
 
-    getByTag(tag: string) {
-      return this.bookmarks.filter((bookmark) => {
-        return bookmark.tags.includes(tag);
-      });
-    },
+      // clear bookmarks
+      this.$reset();
 
-    getById(id: string): Bookmark {
-      const result = this.bookmarks.find((bookmark) => {
-        return bookmark.id === id;
-      });
+      // if there are bookmarks, get them
+      if (totalRows) {
+        // set position in table
+        let moreRecords = true;
+        let cursor = 0;
 
-      if (result) {
-        return clone(result);
-      } else {
-        return {
-          id: '',
-          name: '',
-          url: '',
-          tags: [],
-          created: '',
-          updated: ''
-        };
+        // get bookmarks from db
+        while (moreRecords) {
+          // determine range of records to retreive, inclusive
+          const { to, from } = getRange(cursor);
+
+          // retrieve records from db
+          const { data, error } = await supabase
+            .from('bookmarks_view')
+            .select('*')
+            .range(from, to);
+
+          // handle error and exit loop
+          if (error) {
+            console.error(error);
+            moreRecords = false;
+          }
+
+          // add bookmarks to state and set cursor to end of range retreived
+          if (data) {
+            this.bookmarks.push(...data);
+            moreRecords = to < totalRows ? true : false;
+            cursor = to;
+          }
+        }
       }
     }
   },
@@ -124,3 +117,5 @@ const useBookmarks = defineStore('bookmarks', {
     }
   }
 });
+
+export { useBookmarks, Bookmark };

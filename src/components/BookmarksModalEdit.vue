@@ -15,7 +15,7 @@ import {
 } from '@ionic/vue';
 import { closeCircleOutline } from 'ionicons/icons';
 import { useBookmarks } from '../store/bookmarks';
-import { reactive, defineProps } from 'vue';
+import { defineProps } from 'vue';
 import { useBookmarkFormFields } from '../composables/bookmarkFormFields';
 
 // props
@@ -30,7 +30,9 @@ const props = defineProps({
 const bookmarksStore = useBookmarks();
 
 // local copy of bookmark
-const bookmark = reactive(bookmarksStore.getById(props.bookmarkId));
+const bookmark = bookmarksStore.bookmarks.find((el) => {
+  return el.id === props.bookmarkId ? true : false;
+})!;
 
 // new bookmark form and set initial values
 const bookmarkForm = useBookmarkFormFields();
