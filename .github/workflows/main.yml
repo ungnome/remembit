@@ -16,7 +16,6 @@ jobs:
   staging:
     name: Staging
     needs: [ci]
-    if: ${{ github.event_name == 'push' && github.ref_type == 'branch' && github.ref_name == 'main' }}
     uses: ./.github/workflows/reusable_deploy.yml
     with:
       environment: Staging
