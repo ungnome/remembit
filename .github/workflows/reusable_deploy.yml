@@ -9,59 +9,47 @@ on:
       environment_url:
         type: string
         required: true
-      release-tag:
+      git-ref:
         type: string
-        required: false
-      release:
-        type: boolean
-        required: false
-        default: false
-    secrets:
-      FIREBASE_PROJECT_ID:
         required: true
-      FIREBASE_TOKEN:
-        required: true
-      FIREBASE_FUNCTIONS_ENV:
-        required: true
-      REMEMBIT_ENV:
-        required: true
+
 jobs:
-  Firebase:
-    name: Firebase
+  supabase:
+    name: supbabase
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
       url: ${{ inputs.environment_url }}
     steps:
-      - name: Checkout Main
-        if: ${{ !inputs.release }}
-        uses: actions/checkout@v3
-
-      - name: Checkout Release
-        if: ${{ inputs.release }}
+      - name: checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.release-tag }}
+          ref: ${{ inputs.git-ref }}
 
-      - name: Install pnpm
+      - name: install pnpm
         run: npm install -g pnpm
 
-      - name: Install Dependencies
+      - name: install supabase cli
+        uses: supabase/setup-cli@v1
+        with:
+          version: 1.1.6
+
+      - name: install Dependencies
         run: pnpm install -r
 
-      - name: Update Firebase Functions envars
-        run: echo ${{ secrets.FIREBASE_FUNCTIONS_ENV }} | base64 -d > functions/.env
+      - name: supabase link
+        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
 
-      - name: Update Remembit envars
-        run: echo ${{ secrets.REMEMBIT_ENV }} | base64 -d > .env
+      - name: push db changes
+        run: subabase db push
 
-      - name: Build
-        run: pnpm run build
-
-      - name: Deploy
-        run: |
-          pnpm exec \
-            firebase \
-              --project ${{ secrets.FIREBASE_PROJECT_ID }} \
-              --token ${{ secrets.FIREBASE_TOKEN }} \
-            deploy
+  frontend:
+    name: frontend
+    runs-on: ubuntu-latest
+    needs: [supabase]
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ inputs.environment_url }}
+    steps:
+      - name: deploy
+        run: curl -X POST "${{secrets.RENDER_DEPLOY_WEBHOOK}}&ref=${{ inputs.git-ref }}"

@@ -39,10 +39,5 @@ jobs:
     with:
       environment: Production
       environment_url: https://remembit.app
-      release: true
-      release-tag: ${{ needs.release.outputs.release-tag }}
-    secrets:
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      REMEMBIT_ENV: ${{ secrets.REMEMBIT_ENV }}
-      FIREBASE_FUNCTIONS_ENV: ${{ secrets.FIREBASE_FUNCTIONS_ENV }}
+      git-ref: ${{ needs.release.outputs.release-tag }}
+    secrets: inherit
