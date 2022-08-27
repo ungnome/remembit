@@ -30,22 +30,16 @@ jobs:
         with:
           ref: ${{ inputs.git-ref }}
 
-      - name: install pnpm
-        run: npm install -g pnpm
-
       - name: install supabase cli
         uses: supabase/setup-cli@v1
         with:
           version: 1.1.6
 
-      - name: install Dependencies
-        run: pnpm install -r
-
       - name: supabase link
         run: supabase link --project-ref $SUPABASE_PROJECT_REF
 
       - name: push db changes
-        run: subabase db push
+        run: supabase db push
 
   frontend:
     name: frontend
