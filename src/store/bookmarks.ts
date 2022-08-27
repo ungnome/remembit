@@ -51,7 +51,6 @@ const useBookmarks = defineStore('bookmarks', {
       }
 
       if (data) {
-        console.log('fetching bookmarks');
         this.fetchBookmarks();
       }
     },
@@ -62,14 +61,14 @@ const useBookmarks = defineStore('bookmarks', {
         .from('bookmarks_view')
         .select('*', { count: 'exact', head: true });
 
+      // clear bookmarks
+      this.$reset();
+
       // if there are bookmarks, get them
       if (totalRows) {
         // set position in table
         let moreRecords = true;
         let cursor = 0;
-
-        // clear existing state
-        this.$reset();
 
         // get bookmarks from db
         while (moreRecords) {

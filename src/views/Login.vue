@@ -45,7 +45,7 @@ async function handleSubmit() {
 
   if (session) {
     toggleIsLoading();
-    router.push({ name: 'Neocortex' });
+    router.push({ name: 'Bookmarks' });
   }
 
   if (error) {
