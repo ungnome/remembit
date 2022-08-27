@@ -105,7 +105,7 @@ CREATE POLICY "Allow users to update their profiles" ON "public"."user_profile"
 */
 
 -- create handle_bookmark_insert function
-CREATE OR REPLACE FUNCTION "public".handle_bookmark_insert ()
+CREATE FUNCTION "public".handle_bookmark_insert ()
 	RETURNS TRIGGER
 	LANGUAGE PLPGSQL
 	SECURITY DEFINER
@@ -120,7 +120,7 @@ END
 $$ ;
 
 -- create handle_bookmark_update function
-CREATE OR REPLACE FUNCTION "public".handle_bookmark_update ()
+CREATE FUNCTION "public".handle_bookmark_update ()
 	RETURNS TRIGGER
 	LANGUAGE PLPGSQL
 	SECURITY DEFINER
@@ -138,7 +138,7 @@ $$ ;
 
 
 -- create handle_user_insert function
-CREATE OR REPLACE FUNCTION handle_user_insert ()
+CREATE FUNCTION "public".handle_user_insert ()
 	RETURNS TRIGGER
 	LANGUAGE PLPGSQL
 	SECURITY DEFINER
@@ -159,19 +159,19 @@ $$ ;
 */
  
 -- create bookmark_insert trigger 
-CREATE OR REPLACE TRIGGER bookmark_insert 
+CREATE TRIGGER bookmark_insert 
 	AFTER INSERT ON "public".bookmark 
 	FOR EACH ROW 
 	EXECUTE FUNCTION handle_bookmark_insert ();
 
 -- create bookmark_update trigger
-CREATE OR REPLACE TRIGGER bookmark_update
+CREATE TRIGGER bookmark_update
 	AFTER UPDATE ON "public".bookmark
 	FOR EACH ROW
 	EXECUTE FUNCTION handle_bookmark_update();
 
 -- create user_insert trigger
-CREATE OR REPLACE TRIGGER user_insert
+CREATE TRIGGER user_insert
 	AFTER INSERT ON "auth".users
 	FOR EACH ROW
 	EXECUTE FUNCTION handle_user_insert();
@@ -181,7 +181,7 @@ CREATE OR REPLACE TRIGGER user_insert
 	Views
 	============
 */
-CREATE OR REPLACE VIEW "public".bookmarks_view AS
+CREATE VIEW "public".bookmarks_view AS
 SELECT
 	bookmark.*,
 	bookmark_timestamp.created,
