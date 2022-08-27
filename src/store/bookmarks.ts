@@ -41,7 +41,6 @@ const useBookmarks = defineStore('bookmarks', {
     },
 
     async deleteBookmark(bookmark: Bookmark) {
-      console.log('deleting bookmark');
       const { data, error } = await supabase
         .from('bookmark')
         .delete()
@@ -119,4 +118,4 @@ const useBookmarks = defineStore('bookmarks', {
   }
 });
 
-export { useBookmarks };
+export { useBookmarks, Bookmark };

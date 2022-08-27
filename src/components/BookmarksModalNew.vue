@@ -14,7 +14,7 @@ import {
   IonText
 } from '@ionic/vue';
 import { closeCircleOutline } from 'ionicons/icons';
-import { BookmarkNew, useBookmarks } from '../store/bookmarks';
+import { useBookmarks, Bookmark } from '../store/bookmarks';
 import { reactive } from 'vue';
 import { useBookmarkFormFields } from '../composables/bookmarkFormFields';
 
@@ -22,7 +22,7 @@ import { useBookmarkFormFields } from '../composables/bookmarkFormFields';
 const bookmarksStore = useBookmarks();
 
 // new bookmark skeleton
-const newBookmark: BookmarkNew = reactive({
+const newBookmark: Bookmark = reactive({
   name: '',
   url: '',
   tags: []
