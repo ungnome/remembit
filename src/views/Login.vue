@@ -22,12 +22,14 @@ import {
 import { object, string } from 'yup';
 import { useUser } from '../store/user';
 import { useRouter } from 'vue-router';
+import { useToast } from '../composables/toast';
 
 // init
 const user = useUser();
 const router = useRouter();
 const isLoading = ref(false);
 const loginForm = ref<InstanceType<typeof HTMLFormElement>>();
+const toast = useToast();
 
 // form data and validation
 const email = ref('');
@@ -50,7 +52,7 @@ async function handleSubmit() {
 
   if (error) {
     toggleIsLoading();
-    console.log(error);
+    toast.show(error.message, 'error');
   }
 }
 
