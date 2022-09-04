@@ -49,8 +49,8 @@ jobs:
       name: ${{ inputs.environment }}
       url: ${{ inputs.environment_url }}
     steps:
-      - name: deploy
-        run: curl -X POST "${{secrets.RENDER_DEPLOY_WEBHOOK}}&ref=${{ inputs.git-ref }}"
+      # - name: deploy
+      #   run: curl -X POST "${{secrets.RENDER_DEPLOY_WEBHOOK}}&ref=${{ inputs.git-ref }}"
 
       - name: render deploy
         uses: ungnome/render-service-deploy@v1.0.0
