@@ -14,7 +14,7 @@ import {
 } from '@ionic/vue';
 import { add, bookmark } from 'ionicons/icons';
 import { useBookmarks } from '../store/bookmarks';
-import BookmarksModalNew from '../components/BookmarksModalNew.vue';
+import BookmarkFormModal from '../components/BookmarkFormModal.vue';
 import BookmarkListEntry from '../components/BookmarkListEntry.vue';
 import { ref, computed } from 'vue';
 import { useModalControls } from '../composables/modalControls';
@@ -73,12 +73,13 @@ const searchResults = computed(() => {
           :bookmark-id="bookmark.id!" />
       </ion-list>
     </ion-content>
+
     <ion-modal
       :is-open="newBookmarkModal.isOpen.value"
       :breakpoints="newBookmarkModal.breakPoints"
       :initial-breakpoint="newBookmarkModal.initialBreakPoint"
       @will-dismiss="newBookmarkModal.toggle()">
-      <BookmarksModalNew />
+      <BookmarkFormModal form-type="new" />
     </ion-modal>
   </ion-page>
 </template>
