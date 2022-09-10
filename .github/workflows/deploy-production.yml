@@ -1,0 +1,70 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+    tags: ['v[0-9].[0-9].[0-9]']
+    paths-ignore: ['.github/workflows/**']
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  supabase:
+    name: supbabase
+    runs-on: ubuntu-latest
+    needs: [ci]
+    environment:
+      name: Production
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: install supabase cli
+        uses: supabase/setup-cli@v1
+        with:
+          version: 1.1.6
+
+      - name: supabase link
+        run: supabase link --project-ref $SUPABASE_PROJECT_REF
+
+      - name: push db changes
+        run: supabase db push
+
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    needs: [supabase]
+    environment:
+      name: Production
+      url: ${{ steps.vercel-deploy.outputs.url }}
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: install pnpm
+        run: npm install -g pnpm
+
+      - name: install vercel cli
+        run: pnpm add -g vercel
+
+      - name: pull vercel environment info
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: vercel build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: vercel deploy
+        id: vercel-deploy
+        run: |
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} > url.txt
+          echo "::set-output name=url::$(cat url.txt)"
