@@ -8,13 +8,12 @@ import {
   IonButton,
   IonIcon,
   IonPopover,
-  IonText,
   IonModal
 } from '@ionic/vue';
 import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
-import { unref, defineProps, computed } from 'vue';
+import { defineProps, computed } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
-import BookmarksModalEdit from '../components/BookmarksModalEdit.vue';
+import BookmarkFormModal from './BookmarkFormModal.vue';
 import { useModalControls } from '../composables/modalControls';
 
 // Props
@@ -39,10 +38,6 @@ const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1]);
 
 function deleteBookmark() {
   bookmarksStore.deleteBookmark(bookmark.value);
-}
-
-function openBookmark(url: string) {
-  window.open(url, '_blank');
 }
 </script>
 
@@ -93,12 +88,13 @@ function openBookmark(url: string) {
       </ion-button></ion-buttons
     >
   </ion-item>
+
   <ion-modal
     :is-open="editModal.isOpen.value"
     :breakpoints="editModal.breakPoints"
     :initial-breakpoint="editModal.initialBreakPoint"
     @will-dismiss="editModal.toggle()">
-    <BookmarksModalEdit :bookmark-id="props.bookmarkId" />
+    <BookmarkFormModal form-type="edit" :bookmark-id="bookmark.id" />
   </ion-modal>
 </template>
 

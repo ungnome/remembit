@@ -32,13 +32,14 @@ specifiers:
   semantic-release: ^19.0.2
   ts-jest: ^27.1.4
   typescript: ^4.4.4
-  vee-validate: ^4.5.9
+  vee-validate: ^4.6.7
   vite: ^2.7.2
   vite-plugin-pwa: ^0.12.0
   vue: ^3.2.25
   vue-router: '4'
   vue-tsc: ^0.29.8
   yup: ^0.32.11
+  zod: ^3.18.0
 
 dependencies:
   '@capacitor/app': 1.1.1_@capacitor+core@3.6.0
@@ -53,10 +54,11 @@ dependencies:
   just-merge: 3.0.1
   just-pick: 4.0.1
   pinia: 2.0.11_5bgd5bbqiynntouprdo6x2bjeu
-  vee-validate: 4.5.10_vue@3.2.31
+  vee-validate: 4.6.7_vue@3.2.31
   vue: 3.2.31
   vue-router: 4.0.13_vue@3.2.31
   yup: 0.32.11
+  zod: 3.18.0
 
 devDependencies:
   '@capacitor/cli': 3.6.0
@@ -2772,6 +2774,10 @@ packages:
 
   /@vue/devtools-api/6.0.13:
     resolution: {integrity: sha512-T34EjcArVqzANedEZe2kXQ+AZsld2z1ptJlkOGm87+blk+s6udnP4ze/NYqV8lz1o9AIivimN0xxteLlWiWQdg==}
+    dev: false
+
+  /@vue/devtools-api/6.2.1:
+    resolution: {integrity: sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ==}
     dev: false
 
   /@vue/reactivity-transform/3.2.31:
@@ -7821,12 +7827,12 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vee-validate/4.5.10_vue@3.2.31:
-    resolution: {integrity: sha512-7dZE0PZTNY3Ztp6Gz8iw+QS7Fz59vU1qkD0rBJkldkf9Faw2lFjWgE0tiCist5RQkLgt7/HaVbojzb/SCdutfA==}
+  /vee-validate/4.6.7_vue@3.2.31:
+    resolution: {integrity: sha512-8W9cR/EGqPuHJpodYriAlp5BndQf/IWFifZLyIWeNs7RGB+B0jr50TACjzgtwtp5qE6hgRskOToEhcfhWJdgyw==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
-      '@vue/devtools-api': 6.0.13
+      '@vue/devtools-api': 6.2.1
       vue: 3.2.31
     dev: false
 
@@ -8469,4 +8475,8 @@ packages:
       nanoclone: 0.2.1
       property-expr: 2.0.5
       toposort: 2.0.2
+    dev: false
+
+  /zod/3.18.0:
+    resolution: {integrity: sha512-gwTm8RfUCe8l9rDwN5r2A17DkAa8Ez4Yl4yXqc5VqeGaXaJahzYYXbTwvhroZi0SNBqTwh/bKm2N0mpCzuw4bA==}
     dev: false
