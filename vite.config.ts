@@ -12,7 +12,7 @@ const pwaOptions: VitePWAOptions = {
     name: 'Remembit',
     short_name: 'Remembit',
     description: 'Remember your bits!',
-    start_url: '/neocortex',
+    start_url: '/',
     theme_color: '#ffffff',
     icons: [
       {
