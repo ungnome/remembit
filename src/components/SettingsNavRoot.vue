@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-content>
-    <ion-list inset>
+    <ion-list>
       <ion-item button @click="push()"> Theme</ion-item>
     </ion-list>
   </ion-content>

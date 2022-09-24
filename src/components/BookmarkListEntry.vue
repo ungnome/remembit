@@ -7,8 +7,7 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
-  IonPopover,
-  IonModal
+  IonPopover
 } from '@ionic/vue';
 import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
 import { defineProps, computed } from 'vue';
@@ -34,7 +33,10 @@ const bookmark = computed(() => {
   }) as Bookmark;
 });
 
-const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1]);
+const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1], BookmarkFormModal, {
+  formType: 'edit',
+  bookmarkId: props.bookmarkId
+});
 
 function deleteBookmark() {
   bookmarksStore.deleteBookmark(bookmark.value);
@@ -63,7 +65,7 @@ function deleteBookmark() {
           :dismiss-on-select="true"
           :trigger="`options-menu-button-${bookmark.id}`">
           <ion-list>
-            <ion-item button :detail="false" @click.prevent="editModal.toggle()">
+            <ion-item button :detail="false" @click.prevent="editModal.show()">
               <ion-icon
                 class="ion-margin-end"
                 color="primary"
@@ -88,14 +90,6 @@ function deleteBookmark() {
       </ion-button></ion-buttons
     >
   </ion-item>
-
-  <ion-modal
-    :is-open="editModal.isOpen.value"
-    :breakpoints="editModal.breakPoints"
-    :initial-breakpoint="editModal.initialBreakPoint"
-    @will-dismiss="editModal.toggle()">
-    <BookmarkFormModal form-type="edit" :bookmark-id="bookmark.id" />
-  </ion-modal>
 </template>
 
 <style scoped></style>
