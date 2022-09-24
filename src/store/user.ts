@@ -43,6 +43,10 @@ export const useUser = defineStore('user', {
         this.id = user.id;
         this.email = user.email;
       }
+    },
+
+    updatePassword(newPassword: string) {
+      return supabase.auth.update({ password: newPassword });
     }
   }
 });

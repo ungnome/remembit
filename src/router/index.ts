@@ -7,7 +7,7 @@ const Tabs = () => import('../views/Tabs.vue');
 const Home = () => import('../views/Home.vue');
 const Login = () => import('../views/Login.vue');
 const Bookmarks = () => import('../views/Bookmarks.vue');
-const Profile = () => import('../views/Profile.vue');
+const You = () => import('../views/You.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,9 +45,9 @@ const routes: Array<RouteRecordRaw> = [
         path: 'bookmarks'
       },
       {
-        name: 'Profile',
-        component: Profile,
-        path: 'profile'
+        name: 'You',
+        component: You,
+        path: 'you'
       }
     ]
   }

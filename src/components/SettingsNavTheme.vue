@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-content>
-    <ion-list inset>
+    <ion-list>
       <ion-radio-group :value="settings.theme" @ion-change="handleThemeChange">
         <ion-item>
           <ion-icon

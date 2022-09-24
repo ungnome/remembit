@@ -1,21 +1,34 @@
-import { ref } from 'vue';
+import { modalController } from '@ionic/vue';
 
-export function useModalControls(
+export { useModalControls };
+
+function useModalControls(
   startingBreakPoint: number,
-  breakpointList: Array<number>
+  breakpointList: Array<number>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contentProps?: { [key: string]: any },
+  presenter?: HTMLElement
 ) {
-  const isOpen = ref(false);
   const initialBreakPoint = startingBreakPoint;
   const breakPoints = breakpointList;
 
-  function toggle() {
-    isOpen.value = !isOpen.value;
+  async function show() {
+    const modal = await modalController.create({
+      breakpoints: breakpointList,
+      initialBreakpoint: startingBreakPoint,
+      component: content,
+      componentProps: contentProps,
+      presentingElement: presenter
+    });
+
+    modal.present();
   }
 
   return {
-    isOpen,
     initialBreakPoint,
     breakPoints,
-    toggle
+    show
   };
 }
