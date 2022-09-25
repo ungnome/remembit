@@ -32,6 +32,7 @@ import {
   IonNavLink
 } from '@ionic/vue';
 import YouAccountModalChangePassword from './YouAccountModalChangePassword.vue';
+import YouAccountModalChangeEmail from './YouAccountModalChangeEmail.vue';
 
 function close() {
   modalController.dismiss();
@@ -41,6 +42,10 @@ const menu = [
   {
     label: 'Change Password',
     component: YouAccountModalChangePassword
+  },
+  {
+    label: 'Change Email',
+    component: YouAccountModalChangeEmail
   }
 ];
 </script>

@@ -19,8 +19,15 @@ export const useUser = defineStore('user', {
     };
   },
   actions: {
-    login(email: string, password: string) {
-      return supabase.auth.signIn({ email: email, password: password });
+    async login(email: string, password: string) {
+      const result = await supabase.auth.signIn({ email: email, password: password });
+      if (result.user) {
+        this.name = 'User Name';
+        this.email = result.user.email;
+        this.id = result.user.id;
+      }
+
+      return result;
     },
 
     logout() {
@@ -47,6 +54,10 @@ export const useUser = defineStore('user', {
 
     updatePassword(newPassword: string) {
       return supabase.auth.update({ password: newPassword });
+    },
+
+    updateEmail(newEmail: string) {
+      return supabase.auth.update({ email: newEmail });
     }
   }
 });
