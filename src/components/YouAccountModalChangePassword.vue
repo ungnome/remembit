@@ -12,7 +12,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <the-change-password-form ref="changePasswordForm"></the-change-password-form>
+    <ChangePasswordForm ref="changePasswordForm" />
   </ion-content>
 </template>
 
@@ -26,7 +26,7 @@ import {
   IonButton,
   IonBackButton
 } from '@ionic/vue';
-import TheChangePasswordForm from './TheChangePasswordForm.vue';
+import ChangePasswordForm from './ChangePasswordForm.vue';
 import { ref } from 'vue';
 
 // form ref

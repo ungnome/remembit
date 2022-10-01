@@ -1,85 +1,58 @@
 <template>
-  <ion-toolbar>
-    <ion-title>{{ toolbarTitle }}</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button type="submit" fill="clear" color="primary" @click="save()">
-        Save
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-button fill="clear" color="danger" @click="close()"> Cancel </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-item>
+    <ion-label position="floating">Name</ion-label>
+    <ion-input v-model="bookmarkName.value.value" placeholder="Name" v></ion-input>
+    <span>
+      <ion-text class="error-text" color="danger">{{
+        bookmarkName.errorMessage.value
+      }}</ion-text>
+    </span>
+  </ion-item>
 
-  <ion-content class="ion-padding">
-    <ion-item>
-      <ion-label position="floating">Name</ion-label>
-      <ion-input v-model="bookmarkName.value.value" placeholder="Name" v></ion-input>
-      <span>
-        <ion-text class="error-text" color="danger">{{
-          bookmarkName.errorMessage.value
-        }}</ion-text>
-      </span>
-    </ion-item>
+  <ion-item>
+    <ion-label position="floating">Url</ion-label>
+    <ion-input v-model="bookmarkUrl.value.value" placeholder="Bookmark Url"></ion-input>
+    <span>
+      <ion-text class="error-text" color="danger">{{
+        bookmarkUrl.errorMessage.value
+      }}</ion-text>
+    </span>
+  </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Url</ion-label>
-      <ion-input v-model="bookmarkUrl.value.value" placeholder="Bookmark Url"></ion-input>
-      <span>
-        <ion-text class="error-text" color="danger">{{
-          bookmarkUrl.errorMessage.value
-        }}</ion-text>
-      </span>
-    </ion-item>
+  <ion-item>
+    <ion-label position="floating">Tags</ion-label>
+    <ion-input
+      v-model.trim="bookmarkTag.value.value"
+      placeholder="Add Tag"
+      @keyup.enter="pushTag()"></ion-input>
+    <span>
+      <ion-text class="error-text" color="danger">{{
+        bookmarkTag.errorMessage.value
+      }}</ion-text>
+    </span>
+  </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Tags</ion-label>
-      <ion-input
-        v-model.trim="bookmarkTag.value.value"
-        placeholder="Add Tag"
-        @keyup.enter="pushTag()"></ion-input>
-      <span>
-        <ion-text class="error-text" color="danger">{{
-          bookmarkTag.errorMessage.value
-        }}</ion-text>
-      </span>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-chip
-        v-for="(tag, tagIndex) in bookmarkTags"
-        id="tag"
-        :key="tagIndex"
-        color="primary">
-        <ion-label id="tag-chip-label">{{ tag }}</ion-label>
-        <ion-icon
-          id="tag-chip-icon"
-          :icon="closeCircleOutline"
-          @click.stop="removeTag(tagIndex)"></ion-icon>
-      </ion-chip>
-    </ion-item>
-  </ion-content>
+  <ion-item lines="none">
+    <ion-chip
+      v-for="(tag, tagIndex) in bookmarkTags"
+      id="tag"
+      :key="tagIndex"
+      color="primary">
+      <ion-label id="tag-chip-label">{{ tag }}</ion-label>
+      <ion-icon
+        id="tag-chip-icon"
+        :icon="closeCircleOutline"
+        @click.stop="removeTag(tagIndex)"></ion-icon>
+    </ion-chip>
+  </ion-item>
 </template>
 
 <script setup lang="ts">
-import {
-  IonContent,
-  IonButton,
-  IonButtons,
-  modalController,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonTitle,
-  IonToolbar,
-  IonChip,
-  IonIcon,
-  IonText
-} from '@ionic/vue';
+import { IonInput, IonItem, IonLabel, IonChip, IonIcon, IonText } from '@ionic/vue';
 import { closeCircleOutline } from 'ionicons/icons';
 import { useField } from 'vee-validate';
 import { string as yupString } from 'yup';
-import { defineProps, computed, ref } from 'vue';
+import { defineProps, defineExpose, defineEmits, ref } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
 
 // functions
@@ -97,7 +70,7 @@ function getBookmarkToEdit() {
   }
 }
 
-async function save() {
+async function submit() {
   const isValid = await validateForm();
 
   if (isValid) {
@@ -111,7 +84,7 @@ async function save() {
       case 'new':
         await bookmarkStore.createBookmark(bookmark);
         bookmarkStore.fetchBookmarks();
-        close();
+        emit('success');
         break;
       case 'edit':
         if (bookmarkToEdit) {
@@ -119,18 +92,13 @@ async function save() {
           bookmarkToEdit.url = bookmarkUrl.value.value;
           bookmarkToEdit.tags = bookmarkTags.value;
 
-          console.log('got here');
           await bookmarkStore.updateBookmark(bookmarkToEdit);
           bookmarkStore.fetchBookmarks();
-          close();
+          emit('success');
         }
         break;
     }
   }
-}
-
-function close() {
-  modalController.dismiss();
 }
 
 async function validateForm() {
@@ -174,11 +142,6 @@ const props = defineProps({
 // load bookmark store
 const bookmarkStore = useBookmarks();
 
-// presenation customization
-const toolbarTitle = computed(() => {
-  return props.formType[0].toUpperCase() + props.formType.substring(1) + ' ' + 'Bookmark';
-});
-
 // form validation
 const bookmarkName = useField<string>('name', yupString().required());
 const bookmarkUrl = useField<string>('url', yupString().url().required());
@@ -189,6 +152,10 @@ const bookmarkTags = ref<string[]>([]);
 
 // get bookmark to edit
 const bookmarkToEdit = getBookmarkToEdit();
+
+// emits and exposed methods
+defineExpose({ submit });
+const emit = defineEmits(['success']);
 </script>
 
 <style scoped>

@@ -77,6 +77,7 @@ const formSchema = yupObject({
     .oneOf([yupRef('newPassword')], 'must match New Password')
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleSubmit(values: any) {
   const { user, error } = await userStore.updatePassword(values.newPassword);
   if (user) {

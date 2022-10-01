@@ -13,7 +13,7 @@ import {
 } from '@ionic/vue';
 import { add, bookmark } from 'ionicons/icons';
 import { useBookmarks } from '../store/bookmarks';
-import BookmarkFormModal from '../components/BookmarkFormModal.vue';
+import BookmarkNewModal from '../components/BookmarkNewModal.vue';
 import BookmarkListEntry from '../components/BookmarkListEntry.vue';
 import { ref, computed } from 'vue';
 import { useModalControls } from '../composables/modalControls';
@@ -28,8 +28,7 @@ bookmarkStore.fetchBookmarks();
 const newBookmarkModal = useModalControls(
   0.75,
   [0, 0.25, 0.5, 0.75, 1],
-  BookmarkFormModal,
-  { formType: 'new' }
+  BookmarkNewModal
 );
 
 // search

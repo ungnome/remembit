@@ -12,7 +12,7 @@ import {
 import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
 import { defineProps, computed } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
-import BookmarkFormModal from './BookmarkFormModal.vue';
+import BookmarkEditModal from './BookmarkEditModal.vue';
 import { useModalControls } from '../composables/modalControls';
 
 // Props
@@ -33,8 +33,7 @@ const bookmark = computed(() => {
   }) as Bookmark;
 });
 
-const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1], BookmarkFormModal, {
-  formType: 'edit',
+const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1], BookmarkEditModal, {
   bookmarkId: props.bookmarkId
 });
 

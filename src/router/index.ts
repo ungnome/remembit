@@ -36,6 +36,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         // default to bookmarks view
+        name: 'Default',
         path: '',
         redirect: '/neocortex/bookmarks'
       },
