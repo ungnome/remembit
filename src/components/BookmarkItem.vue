@@ -3,7 +3,6 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonChip,
   IonButtons,
   IonButton,
   IonIcon,
