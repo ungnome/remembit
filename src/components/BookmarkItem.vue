@@ -7,12 +7,13 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
-  IonPopover
+  IonPopover,
+  IonBadge
 } from '@ionic/vue';
 import { pencilOutline, trashOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
 import { defineProps, computed } from 'vue';
 import { useBookmarks, Bookmark } from '../store/bookmarks';
-import BookmarkEditModal from './BookmarkEditModal.vue';
+import BookmarkModalEdit from './BookmarkModalEdit.vue';
 import { useModalControls } from '../composables/modalControls';
 
 // Props
@@ -33,7 +34,7 @@ const bookmark = computed(() => {
   }) as Bookmark;
 });
 
-const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1], BookmarkEditModal, {
+const editModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1], BookmarkModalEdit, {
   bookmarkId: props.bookmarkId
 });
 
@@ -45,10 +46,10 @@ function deleteBookmark() {
 <template>
   <ion-item :href="bookmark.url" target="_blank" rel="noopener" :detail="false">
     <ion-label>
-      <h2>{{ bookmark.name }}</h2>
-      <ion-chip v-for="tag in bookmark.tags" :key="bookmark.tags.indexOf(tag)" disabled>
+      <h2 id="label-text">{{ bookmark.name }}</h2>
+      <ion-badge v-for="tag in bookmark.tags" :key="bookmark.tags.indexOf(tag)" disabled>
         {{ tag }}
-      </ion-chip>
+      </ion-badge>
     </ion-label>
 
     <ion-buttons>
@@ -91,4 +92,8 @@ function deleteBookmark() {
   </ion-item>
 </template>
 
-<style scoped></style>
+<style scoped>
+#label-text {
+  margin-bottom: 5px;
+}
+</style>
