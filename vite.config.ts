@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
@@ -32,13 +33,20 @@ const pwaOptions: VitePWAOptions = {
         purpose: 'any maskable'
       }
     ]
-  },
-  minify: true,
-  disable: false
+  }
 };
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), VitePWA(pwaOptions)],
-  envPrefix: 'REMEMBIT_'
+  envPrefix: 'REMEMBIT_',
+  resolve: {
+    alias: {
+      '@components': `${path.resolve(__dirname, 'src')}/components`,
+      '@composables': `${path.resolve(__dirname, 'src')}/composables`,
+      '@views': `${path.resolve(__dirname, 'src')}/views`,
+      '@store': `${path.resolve(__dirname, 'src')}/store`,
+      '@assets': `${path.resolve(__dirname, 'src')}/assets`
+    }
+  }
 });

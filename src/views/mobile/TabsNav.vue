@@ -3,11 +3,11 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="bookmarks" href="/neocortex/bookmarks">
+        <ion-tab-button tab="bookmarks" href="/mobile/bookmarks">
           <ion-icon :icon="bookmarksOutline"></ion-icon>
           <ion-label>Bookmarks</ion-label>
         </ion-tab-button>
-        <ion-tab-button tab="you" href="/neocortex/you">
+        <ion-tab-button tab="you" href="/mobile/you">
           <ion-icon :icon="personCircleOutline"></ion-icon>
           <ion-label>You</ion-label>
         </ion-tab-button>

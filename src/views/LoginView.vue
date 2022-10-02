@@ -20,9 +20,9 @@ import {
   ErrorMessage as VeeError
 } from 'vee-validate';
 import { object, string } from 'yup';
-import { useUser } from '../store/user';
+import { useUser } from '@store/user';
 import { useRouter } from 'vue-router';
-import { useToast } from '../composables/toast';
+import { useToast } from '@composables/toast';
 
 // init
 const user = useUser();

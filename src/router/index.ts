@@ -3,11 +3,12 @@ import { RouteRecordRaw } from 'vue-router';
 import { useUser } from '../store/user';
 
 // Import Views (lazy load)
-const Tabs = () => import('../views/Tabs.vue');
-const Home = () => import('../views/Home.vue');
-const Login = () => import('../views/Login.vue');
-const Bookmarks = () => import('../views/Bookmarks.vue');
-const You = () => import('../views/You.vue');
+const Home = () => import('@views/HomeView.vue');
+const Login = () => import('@views/LoginView.vue');
+const MobileBookmarks = () => import('@views/mobile/BookmarksView.vue');
+const MobileYou = () => import('@views/mobile/YouView.vue');
+const MobileTabs = () => import('@views/mobile/TabsNav.vue');
+const WebRoot = () => import('@views/web/BookmarksView.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,27 +28,35 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    name: 'Neocortex',
-    component: Tabs,
-    path: '/neocortex/',
+    name: 'Web',
+    component: WebRoot,
+    path: '/web',
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    name: 'Mobile',
+    component: MobileTabs,
+    path: '/mobile/',
     meta: {
       requiresAuth: true
     },
     children: [
       {
         // default to bookmarks view
-        name: 'Default',
+        name: 'MobileRoot',
         path: '',
-        redirect: '/neocortex/bookmarks'
+        redirect: '/mobile/bookmarks'
       },
       {
-        name: 'Bookmarks',
-        component: Bookmarks,
+        name: 'MobileBookmarks',
+        component: MobileBookmarks,
         path: 'bookmarks'
       },
       {
-        name: 'You',
-        component: You,
+        name: 'MobileYou',
+        component: MobileYou,
         path: 'you'
       }
     ]

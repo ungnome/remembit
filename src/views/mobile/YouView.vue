@@ -58,12 +58,12 @@ import {
   informationCircleOutline,
   personCircleOutline
 } from 'ionicons/icons';
-import { useUser } from '../store/user';
+import { useUser } from '@store/user';
 import { useRouter } from 'vue-router';
-import { useModalControls } from '../composables/modalControls';
-import SettingsModal from '../components/SettingsModal.vue';
-import Placeholder from '../components/Placeholder.vue';
-import YouAccountModal from '../components/YouAccountModal.vue';
+import { useModalControls } from '@composables/modalControls';
+import SettingsModal from '@components/SettingsModal.vue';
+import Placeholder from '@components/Placeholder.vue';
+import YouAccountModal from '@components/YouAccountModal.vue';
 
 // Init
 const userStore = useUser();
