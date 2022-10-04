@@ -54,7 +54,7 @@ import {
   IonButtons
 } from '@ionic/vue';
 import { sunnyOutline, moonOutline, phonePortraitOutline } from 'ionicons/icons';
-import { useSettings } from '../store/settings';
+import { useSettings } from '@store/settings';
 
 // load settings store
 const settings = useSettings();

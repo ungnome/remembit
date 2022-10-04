@@ -1,6 +1,6 @@
 <template>
   <ion-toolbar>
-    <ion-title>Edit Bookmark</ion-title>
+    <ion-title>New Bookmark</ion-title>
     <ion-buttons slot="primary">
       <ion-button type="submit" fill="clear" color="primary" @click="save()">
         Save
@@ -11,12 +11,8 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-content class="ion-padding">
-    <BookmarkForm
-      ref="bookmarkForm"
-      form-type="edit"
-      :bookmark-id="props.bookmarkId"
-      @success="close()" />
+  <ion-content>
+    <BookmarkForm ref="bookmarkForm" form-type="new" @success="close()" />
   </ion-content>
 </template>
 
@@ -29,15 +25,8 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/vue';
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 import BookmarkForm from './BookmarkForm.vue';
-
-const props = defineProps({
-  bookmarkId: {
-    type: String,
-    required: true
-  }
-});
 
 const bookmarkForm = ref();
 

@@ -46,8 +46,8 @@ import {
 } from '@ionic/vue';
 import { addOutline } from 'ionicons/icons';
 import { useBookmarks } from '@store/bookmarks';
-import BookmarkModalNew from '@components/BookmarkModalNew.vue';
-import BookmarkItem from '@components/BookmarkItem.vue';
+import BookmarkModalNew from '@components/common/BookmarkModalNew.vue';
+import BookmarkItem from '@components/common/BookmarkItem.vue';
 import { ref, computed } from 'vue';
 import { useModalControls } from '@composables/modalControls';
 
@@ -57,12 +57,11 @@ const bookmarkStore = useBookmarks();
 bookmarkStore.fetchBookmarks();
 
 // new bookmark modal
-// const newBookmarkModal = useModalControls(0.75, [0, 0.25, 0.5, 0.75, 1]);
-const newBookmarkModal = useModalControls(
-  0.75,
-  [0, 0.25, 0.5, 0.75, 1],
-  BookmarkModalNew
-);
+const newBookmarkModal = useModalControls({
+  startingBreakPoint: 0.75,
+  breakpointList: [0, 0.25, 0.5, 0.75, 1],
+  content: BookmarkModalNew
+});
 
 // search
 const search = ref('');

@@ -1,75 +1,3 @@
-<script setup lang="ts">
-// imports
-import {
-  IonPage,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonButton,
-  IonText,
-  IonLoading
-} from '@ionic/vue';
-import { ref } from 'vue';
-import {
-  Form as VeeForm,
-  Field as VeeField,
-  ErrorMessage as VeeError
-} from 'vee-validate';
-import { object, string } from 'yup';
-import { useUser } from '@store/user';
-import { useRouter } from 'vue-router';
-import { useToast } from '@composables/toast';
-
-// init
-const user = useUser();
-const router = useRouter();
-const isLoading = ref(false);
-const loginForm = ref<InstanceType<typeof HTMLFormElement>>();
-const toast = useToast();
-
-// form data and validation
-const email = ref('');
-const password = ref('');
-const formValidationSchema = object({
-  email: string().required().email(),
-  password: string().required()
-});
-const noValidate = false;
-
-// functions
-async function handleSubmit() {
-  toggleIsLoading();
-  const { session, error } = await user.login(email.value, password.value);
-
-  if (session) {
-    toggleIsLoading();
-    router.push({ name: 'Bookmarks' });
-  }
-
-  if (error) {
-    toggleIsLoading();
-    toast.show(error.message, 'error');
-  }
-}
-
-function toggleIsLoading() {
-  isLoading.value = !isLoading.value;
-}
-
-function showRegister() {
-  const mode = import.meta.env.MODE;
-  return mode === 'development' ? true : false;
-}
-
-function handleRegister() {
-  user.register(email.value, password.value);
-}
-</script>
-
 <template>
   <ion-page id="login-page">
     <div class="login-card-container">
@@ -145,6 +73,84 @@ function handleRegister() {
     </div>
   </ion-page>
 </template>
+
+<script setup lang="ts">
+// imports
+import {
+  IonPage,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonButton,
+  IonText,
+  IonLoading
+} from '@ionic/vue';
+import { ref } from 'vue';
+import {
+  Form as VeeForm,
+  Field as VeeField,
+  ErrorMessage as VeeError
+} from 'vee-validate';
+import { object, string } from 'yup';
+import { useUser } from '@store/user';
+import { useApp } from '@store/app';
+import { useRouter } from 'vue-router';
+import { useToast } from '@composables/toast';
+
+// init
+const app = useApp();
+const user = useUser();
+const router = useRouter();
+const isLoading = ref(false);
+const loginForm = ref<InstanceType<typeof HTMLFormElement>>();
+const toast = useToast();
+
+// form data and validation
+const email = ref('');
+const password = ref('');
+const formValidationSchema = object({
+  email: string().required().email(),
+  password: string().required()
+});
+const noValidate = false;
+
+// functions
+async function handleSubmit() {
+  toggleIsLoading();
+  const { session, error } = await user.login(email.value, password.value);
+
+  if (session) {
+    toggleIsLoading();
+    if (app.isMobile) {
+      router.push({ name: 'MobileRoot' });
+    } else {
+      router.push({ name: 'Web' });
+    }
+  }
+
+  if (error) {
+    toggleIsLoading();
+    toast.show(error.message, 'error');
+  }
+}
+
+function toggleIsLoading() {
+  isLoading.value = !isLoading.value;
+}
+
+function showRegister() {
+  const mode = import.meta.env.MODE;
+  return mode === 'development' ? true : false;
+}
+
+function handleRegister() {
+  user.register(email.value, password.value);
+}
+</script>
 
 <style scoped>
 .login-card {

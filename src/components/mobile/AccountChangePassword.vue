@@ -8,11 +8,11 @@
         <ion-button @click="submit()">Submit</ion-button>
       </ion-buttons>
 
-      <ion-title>Change Email</ion-title>
+      <ion-title>Change Password</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <change-email-form ref="changeEmailForm"></change-email-form>
+    <ChangePasswordForm ref="changePasswordForm" />
   </ion-content>
 </template>
 
@@ -26,14 +26,14 @@ import {
   IonButton,
   IonBackButton
 } from '@ionic/vue';
-import ChangeEmailForm from './ChangeEmailForm.vue';
+import ChangePasswordForm from '@components/common/ChangePasswordForm.vue';
 import { ref } from 'vue';
 
 // form ref
-const changeEmailForm = ref();
+const changePasswordForm = ref();
 
 function submit() {
-  changeEmailForm.value.submit();
+  changePasswordForm.value.submit();
 }
 </script>
 

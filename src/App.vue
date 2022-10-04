@@ -1,6 +1,13 @@
+<template>
+  <ion-app>
+    <ion-router-outlet id="root-router-outlet" />
+  </ion-app>
+  <the-reload-prompt></the-reload-prompt>
+</template>
+
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import TheReloadPrompt from '@components/TheReloadPrompt.vue';
+import TheReloadPrompt from '@components/common/TheReloadPrompt.vue';
 import { useSettings } from '@store/settings';
 import { useUser } from '@store/user';
 import { useApp } from '@store/app';
@@ -40,13 +47,6 @@ if (user.isLoggedIn) {
   }
 }
 </script>
-
-<template>
-  <ion-app>
-    <ion-router-outlet />
-  </ion-app>
-  <the-reload-prompt></the-reload-prompt>
-</template>
 
 <style>
 /* #app {

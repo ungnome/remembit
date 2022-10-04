@@ -1,5 +1,5 @@
 <template>
-  <ion-page id="profile-page">
+  <ion-page ref="page">
     <ion-header>
       <ion-toolbar>
         <ion-title>You</ion-title>
@@ -23,6 +23,7 @@
         <ion-item
           v-for="item in menu"
           :key="item.label"
+          :detail="false"
           button
           @click="item.modalController.show()">
           <ion-icon class="ion-margin-end" :icon="item.icon"></ion-icon>
@@ -61,15 +62,15 @@ import {
 import { useUser } from '@store/user';
 import { useRouter } from 'vue-router';
 import { useModalControls } from '@composables/modalControls';
-import SettingsModal from '@components/SettingsModal.vue';
-import Placeholder from '@components/Placeholder.vue';
-import YouAccountModal from '@components/YouAccountModal.vue';
+import SettingsModal from '@components/mobile/SettingsModal.vue';
+import AccountModal from '@components/mobile/AccountModal.vue';
+import PlaceholderComponent from '@components/common/PlaceholderComponent.vue';
 
 // Init
 const userStore = useUser();
 const router = useRouter();
-const pageElement = document.getElementById('profile-page');
-const presenter = pageElement ? pageElement : undefined;
+const appElement = document.getElementById('root-router-outlet');
+const presentingElement = appElement ? appElement : undefined;
 
 // Page Functions
 function handleLogout() {
@@ -83,17 +84,26 @@ const menu = [
   {
     label: 'Account',
     icon: personCircleOutline,
-    modalController: useModalControls(0.98, [], YouAccountModal, presenter)
+    modalController: useModalControls({
+      content: AccountModal,
+      presentingElement: presentingElement
+    })
   },
   {
     label: 'Settings',
     icon: settingsOutline,
-    modalController: useModalControls(0.98, [], SettingsModal, presenter)
+    modalController: useModalControls({
+      content: SettingsModal,
+      presentingElement: presentingElement
+    })
   },
   {
     label: 'About',
     icon: informationCircleOutline,
-    modalController: useModalControls(0.98, [], Placeholder, presenter)
+    modalController: useModalControls({
+      content: PlaceholderComponent,
+      presentingElement: presentingElement
+    })
   }
 ];
 </script>

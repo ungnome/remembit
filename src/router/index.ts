@@ -3,8 +3,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { useUser } from '../store/user';
 
 // Import Views (lazy load)
-const Home = () => import('@views/HomeView.vue');
-const Login = () => import('@views/LoginView.vue');
+const Home = () => import('@views/common/HomeView.vue');
+const Login = () => import('@views/common/LoginView.vue');
 const MobileBookmarks = () => import('@views/mobile/BookmarksView.vue');
 const MobileYou = () => import('@views/mobile/YouView.vue');
 const MobileTabs = () => import('@views/mobile/TabsNav.vue');

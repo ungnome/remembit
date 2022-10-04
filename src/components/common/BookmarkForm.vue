@@ -53,7 +53,7 @@ import { closeCircleOutline } from 'ionicons/icons';
 import { useField } from 'vee-validate';
 import { string as yupString } from 'yup';
 import { defineProps, defineExpose, defineEmits, ref } from 'vue';
-import { useBookmarks, Bookmark } from '../store/bookmarks';
+import { useBookmarks, Bookmark } from '@store/bookmarks';
 
 // functions
 function getBookmarkToEdit() {

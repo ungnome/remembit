@@ -1,34 +1,44 @@
 <template>
   <vee-form :validation-schema="formSchema" @submit="handleSubmit">
     <ion-item>
-      <ion-label position="floating">Current Email</ion-label>
+      <ion-label position="floating">Current Password</ion-label>
       <vee-field
-        name="currentEmail"
-        placeholder="Current Email"
+        name="currentPassword"
+        type="password"
+        placeholder="Current Password"
         :as="IonInput"></vee-field>
     </ion-item>
-    <vee-error v-slot="{ message }" name="currentEmail">
+    <vee-error v-slot="{ message }" name="currentPassword">
       <ion-text color="danger">
         <small>{{ message }}</small>
       </ion-text>
     </vee-error>
 
     <ion-item>
-      <ion-label position="floating"> New Email </ion-label>
-      <vee-field name="newEmail" placeholder="New Email" :as="IonInput"> </vee-field>
-    </ion-item>
-    <vee-error v-slot="{ message }" name="newEmail">
-      <ion-text color="danger">
-        <small>{{ message }}</small>
-      </ion-text>
-    </vee-error>
-
-    <ion-item>
-      <ion-label position="floating"> Confirm New Email </ion-label>
-      <vee-field name="confirmEmail" placeholder="Confirm New Email" :as="IonInput">
+      <ion-label position="floating"> New Password </ion-label>
+      <vee-field
+        name="newPassword"
+        type="password"
+        placeholder="New Password"
+        :as="IonInput">
       </vee-field>
     </ion-item>
-    <vee-error v-slot="{ message }" name="confirmEmail">
+    <vee-error v-slot="{ message }" name="newPassword">
+      <ion-text color="danger">
+        <small>{{ message }}</small>
+      </ion-text>
+    </vee-error>
+
+    <ion-item>
+      <ion-label position="floating"> Confirm New Password </ion-label>
+      <vee-field
+        name="confirmPassword"
+        type="password"
+        placeholder="Confirm New Password"
+        :as="IonInput">
+      </vee-field>
+    </ion-item>
+    <vee-error v-slot="{ message }" name="confirmPassword">
       <ion-text color="danger">
         <small>{{ message }}</small>
       </ion-text>
@@ -48,8 +58,8 @@ import {
 } from 'vee-validate';
 import { string as yupString, object as yupObject, ref as yupRef } from 'yup';
 import { ref, defineExpose, defineEmits } from 'vue';
-import { useUser } from '../store/user';
-import { useToast } from '../composables/toast';
+import { useUser } from '@store/user';
+import { useToast } from '@composables/toast';
 
 // load user store
 const userStore = useUser();
@@ -60,20 +70,17 @@ const submitButton = ref();
 
 // form validation schema
 const formSchema = yupObject({
-  currentEmail: yupString()
+  currentPassword: yupString().required('required'),
+  newPassword: yupString().required('required').min(8, 'must be at least 8 characters'),
+  confirmPassword: yupString()
     .required('required')
-    .oneOf([userStore.email], 'must be your current email email address'),
-  newEmail: yupString().email('must be a valid email address').required('required'),
-  confirmEmail: yupString()
-    .email('must be a valid email address')
-    .required('required')
-    .oneOf([yupRef('newEmail')], 'must match New Email')
+    .oneOf([yupRef('newPassword')], 'must match New Password')
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleSubmit(values: any) {
-  const { user, error } = await userStore.updateEmail(values.newEmail);
+  const { user, error } = await userStore.updatePassword(values.newPassword);
   if (user) {
-    toast.show('confirmation email sent to your new email address', 'success');
     emit('success');
   }
 

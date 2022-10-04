@@ -1,13 +1,12 @@
 <template>
   <ion-toolbar>
-    <ion-title>Account</ion-title>
+    <ion-title>Settings</ion-title>
     <ion-buttons slot="primary">
       <ion-button fill="clear" @click="close()"> Close </ion-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-content>
     <ion-list>
-      <!-- <ion-item v-for="item in menu" :key="item.label" button> {{ item.label }}</ion-item> -->
       <ion-nav-link
         v-for="item in menu"
         :key="item.label"
@@ -24,15 +23,14 @@ import {
   IonToolbar,
   IonTitle,
   IonList,
-  // IonItem,
+  IonItem,
   IonContent,
   IonButton,
   IonButtons,
   modalController,
   IonNavLink
 } from '@ionic/vue';
-import YouAccountModalChangePassword from './YouAccountModalChangePassword.vue';
-import YouAccountModalChangeEmail from './YouAccountModalChangeEmail.vue';
+import SettingsTheme from '@components/mobile/SettingsTheme.vue';
 
 function close() {
   modalController.dismiss();
@@ -40,12 +38,8 @@ function close() {
 
 const menu = [
   {
-    label: 'Change Password',
-    component: YouAccountModalChangePassword
-  },
-  {
-    label: 'Change Email',
-    component: YouAccountModalChangeEmail
+    label: 'Theme',
+    component: SettingsTheme
   }
 ];
 </script>
