@@ -32,7 +32,7 @@ const pinia = createPinia();
 app.use(pinia);
 
 // Load user state
-import { useUser } from './store/user';
+import { useUser } from '@store/user';
 const user = useUser();
 user.refresh();
 

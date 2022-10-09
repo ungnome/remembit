@@ -1,11 +1,6 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/vuejs,visualstudiocode,macos,linux,windows,firebase,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=vuejs,visualstudiocode,macos,linux,windows,firebase,node
-configs/firebase.json
-functions/.env.remembit*
-.env.production
-.env.development
-
 
 
 ### Firebase ###
@@ -141,6 +136,7 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
+.env.*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -153,6 +149,8 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+dist-dev-android
+dist-dev-ios
 
 # Gatsby files
 .cache/

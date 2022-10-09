@@ -1,16 +1,28 @@
+<template>
+  <ion-app>
+    <ion-router-outlet id="root-router-outlet" />
+  </ion-app>
+  <TheReloadPrompt />
+</template>
+
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import TheReloadPrompt from './components/TheReloadPrompt.vue';
-import { useSettings } from './store/settings';
-import { useUser } from './store/user';
-import { useThemeController } from './composables/themeController';
+import TheReloadPrompt from '@components/common/TheReloadPrompt.vue';
+import { useSettings } from '@store/settings';
+import { useUser } from '@store/user';
+import { useApp } from '@store/app';
+import { useThemeController } from '@composables/themeController';
 import { useRouter } from 'vue-router';
 
 // init
+const app = useApp();
 const user = useUser();
 const settings = useSettings();
 const themeController = useThemeController();
 const router = useRouter();
+
+// init app state
+app.init();
 
 // load app settings
 settings.load();
@@ -26,18 +38,15 @@ settings.$subscribe(() => {
   themeController.updateTheme();
 });
 
-// if user is already logged in, send to bookmarks
+// if user is already logged in, send to default route
 if (user.isLoggedIn) {
-  router.push({ name: 'Bookmarks' });
+  if (app.isMobile) {
+    router.push({ name: 'MobileRoot' });
+  } else {
+    router.push({ name: 'Web' });
+  }
 }
 </script>
-
-<template>
-  <ion-app>
-    <ion-router-outlet />
-  </ion-app>
-  <the-reload-prompt></the-reload-prompt>
-</template>
 
 <style>
 /* #app {
