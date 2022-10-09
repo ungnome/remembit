@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Mobile',
     component: MobileTabs,
-    path: '/mobile/',
+    path: '/mobile',
     meta: {
       requiresAuth: true
     },
