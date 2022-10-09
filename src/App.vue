@@ -2,7 +2,7 @@
   <ion-app>
     <ion-router-outlet id="root-router-outlet" />
   </ion-app>
-  <the-reload-prompt></the-reload-prompt>
+  <TheReloadPrompt />
 </template>
 
 <script setup lang="ts">

@@ -8,7 +8,7 @@
     <ion-content class="ion-padding">
       <p>
         This is a personal project for learning. The goal is a simple and cross-platform
-        bookmarking tool for those of us who use multiple browsers.
+        bookmarking tool for those of us who use multiple browsers. Test.
       </p>
       <ion-button @click="router.push({ name: 'Login' })">Log In</ion-button>
     </ion-content>

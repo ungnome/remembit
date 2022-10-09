@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">remembit</string>
+    <string name="title_activity_main">remembit</string>
+    <string name="package_name">app.remembit</string>
+    <string name="custom_url_scheme">app.remembit</string>
+</resources>

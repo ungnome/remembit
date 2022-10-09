@@ -100,6 +100,7 @@ import { useUser } from '@store/user';
 import { useApp } from '@store/app';
 import { useRouter } from 'vue-router';
 import { useToast } from '@composables/toast';
+const supabaseUrl = import.meta.env.REMEMBIT_SUPABASE_URL as string;
 
 // init
 const app = useApp();
@@ -134,7 +135,8 @@ async function handleSubmit() {
 
   if (error) {
     toggleIsLoading();
-    toast.show(error.message, 'error');
+    const message = `${supabaseUrl}`;
+    toast.show(message, 'error');
   }
 }
 
@@ -144,7 +146,7 @@ function toggleIsLoading() {
 
 function showRegister() {
   const mode = import.meta.env.MODE;
-  return mode === 'development' ? true : false;
+  return mode === 'production' ? false : true;
 }
 
 function handleRegister() {
