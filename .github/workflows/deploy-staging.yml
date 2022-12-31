@@ -15,9 +15,6 @@ jobs:
       output-artifacts: true # this tells workflow to output an artifact calld "web"
       environment: Staging
     secrets: inherit
-    # secrets:
-    #   REMEMBIT_SUPABASE_URL: ${{ secrets.REMEMBIT_SUPABASE_URL }}
-    #   REMEMBIT_SUPABASE_ANON_KEY: ${{ secrets.REMEMBIT_SUPABASE_ANON_KEY }}
 
   supabase:
     name: Supabase
@@ -26,10 +23,6 @@ jobs:
     with:
       environment: Staging
     secrets: inherit
-    # secrets:
-    #   SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-    #   SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-    #   SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
   web:
     name: Web
@@ -39,6 +32,3 @@ jobs:
       environment: Staging
       url: https://stg.remembit.app
     secrets: inherit
-    # secrets:
-    #   AWS_DEPLOY_ROLE: ${{ secrets.AWS_DEPLOY_ROLE }}
-    #   CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}

@@ -7,13 +7,6 @@ on:
         description: GitHub Actions Environment
         type: string
         required: true
-    # secrets:
-    #   SUPABASE_ACCESS_TOKEN:
-    #     required: true
-    #   SUPABASE_DB_PASSWORD:
-    #     required: true
-    #   SUPABASE_PROJECT_REF:
-    #     required: true
 
 jobs:
   db:

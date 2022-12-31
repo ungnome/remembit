@@ -11,11 +11,6 @@ on:
         description: URL to show in GitHub UI
         type: string
         required: true
-    # secrets:
-    #   AWS_DEPLOY_ROLE:
-    #     required: true
-    #   CLOUDFRONT_DISTRIBUTION_ID:
-    #     required: true
 
 jobs:
   aws:
