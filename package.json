@@ -8,7 +8,7 @@
     "dev:start:web": "vite --mode dev-web",
     "dev:start:ios": "pnpm run build --mode dev-ios --outDir dist-dev-ios && CAP_PLAT=dev-ios cap run ios",
     "dev:start:android": "pnpm run build --mode dev-android --outDir dist-dev-android && CAP_PLAT=dev-android cap run android",
-    "build": "vue-tsc --noEmit && vite build",
+    "build:web": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue,.ts --fix src",
     "capsync": "pnpm run build --mode development && pnpm exec cap sync",

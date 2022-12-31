@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      output-artifacts:
+        description: Toogle build artifacts saving
+        type: boolean
+        default: false
+
+      environment:
+        description: GitHub Actions environment
+        type: string
+        required: true
+
+jobs:
+  web:
+    name: Web
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      REMEMBIT_SUPABASE_URL: ${{ secrets.REMEMBIT_SUPABASE_URL }}
+      REMEMBIT_SUPABASE_ANON_KEY: ${{ secrets.REMEMBIT_SUPABASE_ANON_KEY }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build Web
+        run: pnpm run build:web
+
+      - name: Upload Artifact
+        if: ${{ inputs.output-artifacts }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: web
+          path: dist/
