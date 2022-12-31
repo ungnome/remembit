@@ -14,7 +14,7 @@ jobs:
 
   supabase:
     needs: [build]
-    uses: ./.github/workflows/callable-supabase.yml
+    uses: ./.github/workflows/callable-deploy-supabase.yml
     with:
       environment: Production
     secrets: inherit

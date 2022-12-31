@@ -6,12 +6,13 @@ on:
       output-artifacts:
         description: Toogle build artifacts saving
         type: boolean
+        required: false
         default: false
 
       environment:
         description: GitHub Actions environment
         type: string
-        required: true
+        required: false
 
 jobs:
   web:
