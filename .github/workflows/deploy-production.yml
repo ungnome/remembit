@@ -10,14 +10,19 @@ jobs:
     with:
       output-artifacts: true # this tells workflow to output an artifact calld "web"
       environment: Production
-    secrets: inherit
+    secrets:
+      REMEMBIT_SUPABASE_URL: ${{ secrets.REMEMBIT_SUPABASE_URL }}
+      REMEMBIT_SUPABASE_ANON_KEY: ${{ secrets.REMEMBIT_SUPABASE_ANON_KEY }}
 
   supabase:
     needs: [build]
     uses: ./.github/workflows/callable-deploy-supabase.yml
     with:
       environment: Production
-    secrets: inherit
+    secrets:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_REF }}
 
   web:
     needs: [build, supabase]
@@ -25,4 +30,6 @@ jobs:
     with:
       environment: Production
       url: https://remembit.app
-    secrets: inherit
+    secrets:
+      AWS_DEPLOY_ROLE: ${{ secrets.AWS_DEPLOY_ROLE }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
