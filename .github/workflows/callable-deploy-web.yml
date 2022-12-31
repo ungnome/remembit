@@ -1,0 +1,40 @@
+name: Deploy Web
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: GitHub Actions environment
+        type: string
+        required: true
+      url:
+        description: URL to show in GitHub UI
+        type: string
+        required: true
+
+jobs:
+  aws:
+    name: AWS
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ inputs.url }}
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: web
+          path: ~/web
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+          aws-region: us-east-1
+
+      - name: Sync to S3
+        run: aws s3 sync --delete ~/web s3://stg.remembit.app.us-east-1/
+
+      - name: Invalidate CDN Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
