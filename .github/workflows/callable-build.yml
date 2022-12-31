@@ -14,7 +14,9 @@ on:
         required: false
     secrets:
       REMEMBIT_SUPABASE_URL:
+        required: false
       REMEMBIT_SUPABASE_ANON_KEY:
+        required: false
 
 jobs:
   web:
