@@ -13,8 +13,8 @@ on:
         type: string
         required: false
     secrets:
-      REMEMBIT_SUPABASE_URL: ${{ secrets.REMEMBIT_SUPABASE_URL }}
-      REMEMBIT_SUPABASE_ANON_KEY: ${{ secrets.REMEMBIT_SUPABASE_ANON_KEY }}
+      REMEMBIT_SUPABASE_URL:
+      REMEMBIT_SUPABASE_ANON_KEY:
 
 jobs:
   web:
