@@ -16,7 +16,7 @@ jobs:
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+      PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_REF }}
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -25,7 +25,7 @@ jobs:
         uses: supabase/setup-cli@v1
 
       - name: supabase link
-        run: supabase link --project-ref $SUPABASE_PROJECT_REF
+        run: supabase link --project-ref $PROJECT_ID
 
       - name: push db changes
         run: supabase db push

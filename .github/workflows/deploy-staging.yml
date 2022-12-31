@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    name: Build
     uses: ./.github/workflows/callable-build.yml
     with:
       output-artifacts: true # this tells workflow to output an artifact calld "web"
@@ -16,6 +17,7 @@ jobs:
     secrets: inherit
 
   supabase:
+    name: Supabase
     needs: [build]
     uses: ./.github/workflows/callable-deploy-supabase.yml
     with:
@@ -23,6 +25,7 @@ jobs:
     secrets: inherit
 
   web:
+    name: Web
     needs: [build, supabase]
     uses: ./.github/workflows/callable-deploy-web.yml # this expects an artifact named "web"
     with:
