@@ -36,7 +36,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Sync to S3
-        run: aws s3 sync --delete ~/web "s3://${{ secrets.AWS_S3_BUCKET_USE1 }}/""
+        run: aws s3 sync --delete ~/web s3://stg.remembit.app.us-east-1/
 
       - name: Invalidate CDN Cache
         run: |
