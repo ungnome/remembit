@@ -1,4 +1,4 @@
-name: Lint
+name: Callable Lint
 
 on:
   workflow_call:

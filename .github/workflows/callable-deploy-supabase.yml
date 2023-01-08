@@ -1,4 +1,4 @@
-name: Deploy Supabase
+name: Callable Deploy Supabase
 
 on:
   workflow_call:
