@@ -17,5 +17,6 @@ RUN unzip /tmp/pb.zip -d /pb/
 
 EXPOSE 8080
 
+# test comment
 ENTRYPOINT ["/pb/pocketbase"]
 
