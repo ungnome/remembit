@@ -1,4 +1,4 @@
 {
     "web": "0.0.1",
-    "backend-pocketbase": "0.0.1"
+    "backend/pocketbase": "0.0.1"
 }

@@ -3,7 +3,7 @@
         "web": {
             "release-type": "node"
         },
-        "backend-pocketbase": {
+        "backend/pocketbase": {
             "release-type": "node"
         }
     }
