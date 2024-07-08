@@ -2,7 +2,8 @@
 	"name": "remembit-web",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev:frontend": "vite dev",
+		"dev:backend": "docker compose -f ../deploy/compose-local-dev.yml up",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -12,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-static": "^3.0.2",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.7",
