@@ -2,6 +2,9 @@
     "packages": {
         "web": {
             "release-type": "node"
+        },
+        "backend-pocketbase": {
+            "release-type": "node"
         }
     }
 }
