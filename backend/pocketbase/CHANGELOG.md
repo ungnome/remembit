@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/ungnome/remembit/compare/backend-pocketbase-v0.1.0...backend-pocketbase-v0.2.0) (2024-08-04)
+
+
+### Features
+
+* **backend:** add bookmarks table ([#4](https://github.com/ungnome/remembit/issues/4)) ([1e67021](https://github.com/ungnome/remembit/commit/1e670215d22f6a234ad6860dbf06c67ff1616a9e))
+
 ## [0.1.0](https://github.com/ungnome/remembit/compare/backend-pocketbase-v0.0.1...backend-pocketbase-v0.1.0) (2024-07-08)
 
 
