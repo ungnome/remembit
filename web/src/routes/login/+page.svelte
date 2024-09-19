@@ -2,13 +2,14 @@
 	import UserIcon from '$lib/icons/user.svelte';
 	import KeyIcon from '$lib/icons/key.svelte';
 	import { pb } from '$lib/pocketbase';
+	import { goto } from '$app/navigation';
 
 	let user = '';
 	let password = '';
 
 	async function signIn() {
-		console.log(user);
 		await pb.collection('users').authWithPassword(user, password);
+		goto('/bookmarks');
 	}
 </script>
 
