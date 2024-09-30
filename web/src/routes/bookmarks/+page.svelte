@@ -1,24 +1,23 @@
 <script lang="ts">
-	import { currentUser } from '$lib/pocketbase';
 	import { bookmarks } from '$lib/bookmarks';
 	import BookmarkFormModal from '$lib/BookmarkFormModal.svelte';
-	import type { SvelteComponent } from 'svelte';
 	import EditIcon from '$lib/icons/edit.svelte';
 	import TrashIcon from '$lib/icons/trash.svelte';
+	import BookmarkIcon from '$lib/icons/bookmark.svelte';
+	import type { SvelteComponent } from 'svelte';
 
-	let newBookmarkForm: SvelteComponent;
-	let updateBookmarkForm: SvelteComponent;
-
-	function logUser() {
-		console.log($currentUser);
-	}
-
-	function logBookmarks() {
-		console.log($bookmarks);
-	}
+	let bookmarkFormModal: SvelteComponent;
 </script>
 
 <h1>Bookmarks Page</h1>
+<BookmarkFormModal bind:this={bookmarkFormModal} />
+
+<button
+	class="btn"
+	on:click={() => {
+		bookmarkFormModal.showCreateModal();
+	}}>Create <BookmarkIcon class="size-5" /></button
+>
 
 <table class="table">
 	<!-- head -->
@@ -42,7 +41,12 @@
 				<td class="text-end">
 					<ul class="menu menu-horizontal rounded-box p-0">
 						<li>
-							<button class="btn btn-ghost btn-sm">
+							<button
+								class="btn btn-ghost btn-sm"
+								on:click|stopPropagation={() => {
+									bookmarkFormModal.showEditModal(bookmark.id);
+								}}
+							>
 								<EditIcon class="size-4 text-info" />
 							</button>
 						</li>
