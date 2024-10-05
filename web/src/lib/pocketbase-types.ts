@@ -35,9 +35,9 @@ export type AuthSystemFields<T = never> = {
 // Record types for each collection
 
 export type BookmarksRecord = {
-	name?: string;
+	name: string;
 	owner: RecordIdString;
-	url?: string;
+	url: string;
 };
 
 export type UsersRecord = {
