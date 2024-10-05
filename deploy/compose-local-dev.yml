@@ -15,3 +15,6 @@ services:
       - type: bind
         source: ../backend/pocketbase/pb_migrations
         target: /pb/pb_migrations
+      - type: bind
+        source: ./local-dev-pb_data
+        target: /pb/pb_data
