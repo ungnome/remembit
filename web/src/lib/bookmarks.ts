@@ -2,12 +2,15 @@ import { pb, currentUser } from '$lib/pocketbase';
 import { readonly, writable, get } from 'svelte/store';
 import type { BookmarksResponse } from '$lib/pocketbase-types';
 
+export { bookmarks, createBookmark, updateBookmark, deleteBookmark };
+
 const _bookmarks = writable(<BookmarksResponse[]>[], () => {
 	refreshBookmarks();
 });
-export const bookmarks = readonly(_bookmarks);
 
-export async function createBookmark(name: string, url: string) {
+const bookmarks = readonly(_bookmarks);
+
+async function createBookmark(name: string, url: string) {
 	const _user = get(currentUser);
 
 	await pb.collection('bookmarks').create({
@@ -19,7 +22,7 @@ export async function createBookmark(name: string, url: string) {
 	await refreshBookmarks();
 }
 
-export async function updateBookmark(id: string, name: string, url: string) {
+async function updateBookmark(id: string, name: string, url: string) {
 	const _user = get(currentUser);
 
 	await pb.collection('bookmarks').update(id, {
@@ -31,7 +34,7 @@ export async function updateBookmark(id: string, name: string, url: string) {
 	await refreshBookmarks();
 }
 
-export async function deleteBookmark(id: string) {
+async function deleteBookmark(id: string) {
 	await pb.collection('bookmarks').delete(id);
 	await refreshBookmarks();
 }
