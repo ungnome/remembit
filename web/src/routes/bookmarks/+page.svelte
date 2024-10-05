@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bookmarks } from '$lib/bookmarks';
+	import { bookmarks, deleteBookmark } from '$lib/bookmarks';
 	import BookmarkFormModal from '$lib/BookmarkFormModal.svelte';
 	import EditIcon from '$lib/icons/edit.svelte';
 	import TrashIcon from '$lib/icons/trash.svelte';
@@ -51,7 +51,12 @@
 							</button>
 						</li>
 						<li>
-							<button class="btn btn-ghost btn-error btn-sm">
+							<button
+								class="btn btn-ghost btn-error btn-sm"
+								on:click|stopPropagation={async () => {
+									await deleteBookmark(bookmark.id);
+								}}
+							>
 								<TrashIcon class="size-4 text-error" />
 							</button>
 						</li>
