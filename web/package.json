@@ -5,7 +5,6 @@
 	"scripts": {
 		"dev:frontend": "vite dev",
 		"dev:backend": "docker compose -f ../deploy/compose-local-dev.yml up --build",
-		"dev:typegen": "pocketbase-typegen --db ../deploy/local-dev-pb_data/data.db --out src/lib/pocketbase-types.ts",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -25,7 +24,6 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
-		"pocketbase-typegen": "^1.2.1",
 		"postcss": "^8.4.40",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",

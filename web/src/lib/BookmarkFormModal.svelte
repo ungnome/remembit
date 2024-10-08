@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createBookmark, updateBookmark, bookmarks } from '$lib/bookmarks';
-	import type { BookmarksResponse } from '$lib/pocketbase-types';
+	import type { Bookmark } from '$lib/pocketbase';
 
 	export function showEditModal(bookmarkId: string) {
 		resetModal();
@@ -27,7 +27,7 @@
 
 	let dialogType: 'create' | 'update';
 	let bookmarkFormDialog: HTMLDialogElement;
-	let bookmarkToEdit: undefined | BookmarksResponse = undefined;
+	let bookmarkToEdit: undefined | Bookmark = undefined;
 	let name = '';
 	let url = '';
 
