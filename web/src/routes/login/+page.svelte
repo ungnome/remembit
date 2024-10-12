@@ -4,23 +4,12 @@
 	import { pb } from '$lib/pocketbase';
 	import { goto } from '$app/navigation';
 
-	let user = '';
+	let email = '';
 	let password = '';
 
 	async function signIn() {
-		await pb.collection('users').authWithPassword(user, password);
-		// goto('/bookmarks');
-	}
-
-	function logStuff() {
-		console.log(pb.authStore.isValid);
-		console.log(pb.authStore.isAuthRecord);
-		pb.authStore.model.await
-		console.log(JSON.stringify(pb.authStore.model));
-	}
-
-	function clearUser() {
-		pb.authStore.clear();
+		await pb.collection('users').authWithPassword(email, password);
+		goto('/bookmarks');
 	}
 </script>
 
@@ -29,9 +18,9 @@
 		<div class="card-body">
 			<h2 class="card-title mb-4 block text-center">Remembit</h2>
 			<form id="signin" on:submit|preventDefault={signIn} class="flex flex-col" action="">
-				<label class="input input-bordered mb-2 flex items-center gap-2"> 
+				<label class="input input-bordered mb-2 flex items-center gap-2">
 					<UserIcon class="h-4 w-4 opacity-70" />
-					<input bind:value={user} type="text" placeholder="Username or Email" />
+					<input bind:value={email} type="email" placeholder="Email Address" />
 				</label>
 
 				<label class="input input-bordered mb-2 flex items-center gap-2">
@@ -45,6 +34,3 @@
 		</div>
 	</div>
 </div>
-
-<button class="btn" on:click={logStuff}>Log Shit</button>
-<button class="btn" on:click={clearUser}>Clear User</button>
