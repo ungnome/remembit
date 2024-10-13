@@ -6,10 +6,20 @@
 
 	let email = '';
 	let password = '';
+	let errorMessage = '';
 
-	async function signIn() {
-		await pb.collection('users').authWithPassword(email, password);
-		goto('/bookmarks');
+	function signIn() {
+		errorMessage = '';
+
+		pb.collection('users')
+			.authWithPassword(email, password)
+			.then(() => {
+				goto('/bookmarks');
+			})
+			.catch(() => {
+				errorMessage = 'sign-in failed :(';
+				console.error('sign-in failed.');
+			});
 	}
 </script>
 
@@ -28,9 +38,17 @@
 					<input bind:value={password} class="grow" type="password" placeholder="Password" />
 				</label>
 			</form>
+			<span class="text-error">{errorMessage}</span>
 			<div class="card-actions">
 				<input form="signin" type="submit" class="btn btn-block" value="Sign-In" />
 			</div>
 		</div>
 	</div>
 </div>
+
+<button
+	class="btn"
+	on:click={() => {
+		pb.authStore.clear();
+	}}>Sign-out</button
+>
