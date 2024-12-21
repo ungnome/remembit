@@ -5,7 +5,7 @@
 <nav>
 	<a href="/">Home</a>
 	<a href="/bookmarks">Bookmarks</a>
-	<a href="/login">Login</a>
+	<a href="/signin">Login</a>
 </nav>
 
 <slot></slot>
