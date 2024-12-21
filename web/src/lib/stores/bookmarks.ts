@@ -1,9 +1,11 @@
-import { pb, currentUser } from '$lib/pocketbase';
+import { pb } from '$lib/services/pocketbase';
+import { currentUser } from '$lib/stores/user';
 import { readonly, writable, get } from 'svelte/store';
+import type { Bookmark } from '$lib/services/pocketbase';
 
 export { bookmarks, createBookmark, updateBookmark, deleteBookmark };
 
-const _bookmarks = writable(<any[]>[], () => {
+const _bookmarks = writable(<Bookmark[]>[], () => {
 	refreshBookmarks();
 });
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { bookmarks, deleteBookmark } from '$lib/bookmarks';
-	import BookmarkFormModal from '$lib/BookmarkFormModal.svelte';
+	import { bookmarks, deleteBookmark } from '$lib/stores/bookmarks';
+	import BookmarkFormModal from '$lib/components/BookmarkFormModal.svelte';
 	import EditIcon from '$lib/icons/edit.svelte';
 	import TrashIcon from '$lib/icons/trash.svelte';
 	import BookmarkIcon from '$lib/icons/bookmark.svelte';

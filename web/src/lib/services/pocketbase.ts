@@ -1,17 +1,11 @@
 import PocketBase from 'pocketbase';
 import type { RecordService } from 'pocketbase';
 import { env } from '$env/dynamic/public';
-import { writable } from 'svelte/store';
 
-export { pb, currentUser };
+export { pb };
 export type { Bookmark };
 
 const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL) as TypedPocketBase;
-const currentUser = writable(pb.authStore.model);
-
-pb.authStore.onChange(() => {
-	currentUser.set(pb.authStore.model);
-});
 
 interface Bookmark {
 	id: string;

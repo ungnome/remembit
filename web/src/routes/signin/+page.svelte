@@ -1,7 +1,7 @@
 <script lang="ts">
 	import UserIcon from '$lib/icons/user.svelte';
 	import KeyIcon from '$lib/icons/key.svelte';
-	import { pb } from '$lib/pocketbase';
+	import { pb } from '$lib/services/pocketbase';
 	import { goto } from '$app/navigation';
 
 	let email = '';

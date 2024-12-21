@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { createBookmark, updateBookmark, bookmarks } from '$lib/bookmarks';
-	import type { Bookmark } from '$lib/pocketbase';
+	import { createBookmark, updateBookmark, bookmarks } from '$lib/stores/bookmarks';
+	import type { Bookmark } from '$lib/services/pocketbase';
 
 	export function showEditModal(bookmarkId: string) {
 		resetModal();
