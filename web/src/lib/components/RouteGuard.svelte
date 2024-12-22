@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 
 	let isSignedIn = pb.authStore.isValid;
-	console.log(pb.authStore);
+	let { children } = $props();
 
 	if (!isSignedIn) {
 		goto('/signin');
@@ -11,5 +11,5 @@
 </script>
 
 {#if isSignedIn}
-	<slot />
+	{@render children?.()}
 {/if}

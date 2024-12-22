@@ -4,22 +4,27 @@
 	import SuccessIcon from '$lib/icons/check-circle.svelte';
 	import InfoIcon from '$lib/icons/info.svelte';
 
-	export let notificationType: 'info' | 'success' | 'warning' | 'error' = 'info';
+	type Props = {
+		message: string;
+		type: 'info' | 'success' | 'warning' | 'error';
+	};
+
+	let { message, type }: Props = $props();
 </script>
 
 <div class="toast toast-center toast-bottom z-50">
 	<div role="alert" class="alert alert-warning">
-		{#if notificationType === 'info'}
+		{#if type === 'info'}
 			<InfoIcon />
-		{:else if notificationType === 'success'}
+		{:else if type === 'success'}
 			<SuccessIcon />
-		{:else if notificationType === 'warning'}
+		{:else if type === 'warning'}
 			<WarningIcon />
 		{:else}
 			<ErrorIcon />
 		{/if}
 		<span>
-			<slot>Placeholder Notification.</slot>
+			{message}
 		</span>
 	</div>
 </div>
