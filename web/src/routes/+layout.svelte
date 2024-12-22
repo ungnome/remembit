@@ -1,11 +1,8 @@
 <script>
 	import '../app.css';
+	import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
-<nav>
-	<a href="/">Home</a>
-	<a href="/bookmarks">Bookmarks</a>
-	<a href="/signin">Login</a>
-</nav>
+<Navbar />
 
 <slot></slot>
