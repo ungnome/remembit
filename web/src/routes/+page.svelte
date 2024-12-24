@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { currentUser } from '$lib/stores/user';
+	import { goto } from '$app/navigation';
+
+	if (currentUser) {
+		goto('/bookmarks')
+	}
 </script>
 
 <h1>Welcome to SvelteKit placeholder for remembit!</h1>
