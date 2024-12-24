@@ -9,15 +9,7 @@
 	let bookmarkFormModal: SvelteComponent;
 </script>
 
-<h1>Bookmarks Page</h1>
 <BookmarkFormModal bind:this={bookmarkFormModal} />
-
-<button
-	class="btn"
-	on:click={() => {
-		bookmarkFormModal.showCreateModal();
-	}}>Create <BookmarkIcon class="size-5" /></button
->
 
 <table class="table">
 	<!-- head -->

@@ -45,10 +45,3 @@
 		</div>
 	</div>
 </div>
-
-<button
-	class="btn"
-	on:click={() => {
-		pb.authStore.clear();
-	}}>Sign-out</button
->
