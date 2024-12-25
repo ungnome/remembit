@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { bookmarks, deleteBookmark } from '$lib/stores/bookmarks';
+	import {bookmarksFiltered, deleteBookmark } from '$lib/stores/bookmarks';
 	import BookmarkFormModal from '$lib/components/BookmarkFormModal.svelte';
 	import EditIcon from '$lib/icons/edit.svelte';
 	import TrashIcon from '$lib/icons/trash.svelte';
-	import BookmarkIcon from '$lib/icons/bookmark.svelte';
 	import type { SvelteComponent } from 'svelte';
 
 	let bookmarkFormModal: SvelteComponent;
@@ -21,7 +20,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each $bookmarks as bookmark (bookmark.id)}
+		{#each $bookmarksFiltered as bookmark (bookmark.id)}
 			<tr
 				class="hover"
 				on:click={() => {
