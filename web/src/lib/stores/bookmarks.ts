@@ -1,15 +1,32 @@
-import { pb } from '$lib/services/pocketbase';
+import { pb, type Bookmark } from '$lib/services/pocketbase';
 import { currentUser } from '$lib/stores/user';
-import { readonly, writable, get } from 'svelte/store';
-import type { Bookmark } from '$lib/services/pocketbase';
+import { get, writable, readonly, derived } from 'svelte/store';
 
-export { bookmarks, createBookmark, updateBookmark, deleteBookmark };
+export {
+	bookmarks,
+	bookmarksFiltered,
+	searchString,
+	createBookmark,
+	updateBookmark,
+	deleteBookmark
+};
 
 const _bookmarks = writable(<Bookmark[]>[], () => {
 	refreshBookmarks();
 });
-
 const bookmarks = readonly(_bookmarks);
+const searchString = writable('');
+const bookmarksFiltered = derived([bookmarks, searchString], ([$bookmarks, $searchString]) =>
+	filterBookmarks($bookmarks, $searchString)
+);
+
+function filterBookmarks(bookmarks: Bookmark[], searchString: string) {
+	return bookmarks.filter((bookmark) => {
+		const searchTargets = [bookmark.name, bookmark.url];
+		const results = searchTargets.map((target) => target.toLowerCase().includes(searchString));
+		return results.includes(true);
+	});
+}
 
 async function createBookmark(name: string, url: string) {
 	const _user = get(currentUser);
