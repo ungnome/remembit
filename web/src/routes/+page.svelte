@@ -2,7 +2,7 @@
 	import { currentUser } from '$lib/stores/user';
 	import { goto } from '$app/navigation';
 
-	if (currentUser) {
+	if ($currentUser) {
 		goto('/bookmarks')
 	}
 </script>
