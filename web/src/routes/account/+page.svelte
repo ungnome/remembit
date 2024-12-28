@@ -9,12 +9,16 @@
 		}
 	}
 
-	async function handleSave() {
-		await setName(name);
+	function handleSave() {
+		setName(name).then(() => {
+			name = '';
+			hasChanged = false;
+		});
 	}
 
 	let name = $state('');
 	let hasChanged = $state(false);
+	$inspect(name);
 </script>
 
 <div class="grid place-items-center">
