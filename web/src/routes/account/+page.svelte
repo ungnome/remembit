@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { currentUser, setName } from '$lib/stores/user';
 	import ChangeEmailModal from '$lib/components/ChangeEmailModal.svelte';
+	import ChangePasswordModal from '$lib/components/ChangePasswordModal.svelte';
 	import type { SvelteComponent } from 'svelte';
 
 	function handleNameInputChange() {
@@ -21,9 +22,11 @@
 	let name = $state('');
 	let hasChanged = $state(false);
 	let changeEmailModal: SvelteComponent;
+	let changePasswordModal: SvelteComponent;
 </script>
 
 <ChangeEmailModal bind:this={changeEmailModal} />
+<ChangePasswordModal bind:this={changePasswordModal} />
 
 <div class="grid place-items-center">
 	<div class="card w-2/4">
@@ -53,7 +56,13 @@
 
 			<div class="join join-vertical">
 				<label for="change-password" class="label font-bold">Password</label>
-				<button id="change-password" class="btn max-w-xs">Change Password</button>
+				<button
+					id="change-password"
+					onclick={() => {
+						changePasswordModal.show();
+					}}
+					class="btn max-w-xs">Change Password</button
+				>
 			</div>
 		</div>
 

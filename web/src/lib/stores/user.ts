@@ -18,6 +18,6 @@ async function setName(newName: string) {
 	await pb.collection('users').update(user!.id, { name: newName });
 }
 
-async function changeEmail(email: string) {
-	await pb.collection('users').requestEmailChange(email);
+async function changeEmail(newEmail: string) {
+	await pb.collection('users').requestEmailChange(newEmail);
 }
