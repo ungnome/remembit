@@ -34,6 +34,7 @@
 				<input
 					id="new-password"
 					type="password"
+					required
 					bind:value={newPassword}
 					class="input input-bordered"
 				/>
@@ -44,6 +45,7 @@
 				<input
 					id="new-password-confirm"
 					type="password"
+					required
 					bind:value={newPasswordConfirm}
 					class="input input-bordered"
 				/>
@@ -54,6 +56,7 @@
 				<input
 					id="current-password"
 					type="password"
+					required
 					bind:value={currentPassword}
 					class="input input-bordered"
 				/>
