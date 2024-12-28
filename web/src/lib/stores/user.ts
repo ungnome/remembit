@@ -1,7 +1,7 @@
 import { pb } from '$lib/services/pocketbase';
 import { get, readonly, writable } from 'svelte/store';
 
-export { currentUser, setName };
+export { currentUser, setName, changeEmail };
 
 const _currentUser = writable(pb.authStore.record);
 const _hasValidCredentials = writable(pb.authStore.isValid);
@@ -16,4 +16,8 @@ pb.authStore.onChange(() => {
 async function setName(newName: string) {
 	const user = get(currentUser);
 	await pb.collection('users').update(user!.id, { name: newName });
+}
+
+async function changeEmail(email: string) {
+	await pb.collection('users').requestEmailChange(email);
 }

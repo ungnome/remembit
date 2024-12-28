@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { currentUser, setName } from '$lib/stores/user';
+	import ChangeEmailModal from '$lib/components/ChangeEmailModal.svelte';
+	import type { SvelteComponent } from 'svelte';
 
 	function handleNameInputChange() {
 		if (name) {
@@ -18,8 +20,10 @@
 
 	let name = $state('');
 	let hasChanged = $state(false);
-	$inspect(name);
+	let changeEmailModal: SvelteComponent;
 </script>
+
+<ChangeEmailModal bind:this={changeEmailModal} />
 
 <div class="grid place-items-center">
 	<div class="card w-2/4">
@@ -39,7 +43,12 @@
 			<div class="join join-vertical">
 				<label for="email" class="label font-bold">Email</label>
 				<span class="mb-2">{$currentUser!.email}</span>
-				<button class="btn max-w-xs">Change Email</button>
+				<button
+					onclick={() => {
+						changeEmailModal.show();
+					}}
+					class="btn max-w-xs">Change Email</button
+				>
 			</div>
 
 			<div class="join join-vertical">
