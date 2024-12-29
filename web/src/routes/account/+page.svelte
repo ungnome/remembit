@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { currentUser, setName } from '$lib/stores/user';
+	import { pb } from '$lib/services/pocketbase';
+	import { goto } from '$app/navigation';
 	import ChangeEmailModal from '$lib/components/ChangeEmailModal.svelte';
 	import ChangePasswordModal from '$lib/components/ChangePasswordModal.svelte';
 	import type { SvelteComponent } from 'svelte';
@@ -17,6 +19,13 @@
 			name = '';
 			hasChanged = false;
 		});
+	}
+
+	async function handleDelete() {
+		const id = pb.authStore.record!.id;
+		await pb.collection('users').delete(id);
+		pb.authStore.clear()
+		goto('/');
 	}
 
 	let name = $state('');
@@ -68,7 +77,7 @@
 
 		<div class="divider"></div>
 		<div class="card-actions justify-between">
-			<button class="btn btn-outline btn-error" value="Delete Account">Delete Account</button>
+			<button onclick={handleDelete} class="btn btn-outline btn-error">Delete Account</button>
 			<button onclick={handleSave} class="btn {hasChanged ? 'btn-primary' : 'btn-disabled'}"
 				>Save
 			</button>
