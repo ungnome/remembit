@@ -1,35 +1,32 @@
 <script lang="ts">
-	import { currentUser, setName } from '$lib/stores/user';
+	import { currentUser } from '$lib/stores/user';
 	import { pb } from '$lib/services/pocketbase';
 	import { goto } from '$app/navigation';
 	import ChangeEmailModal from '$lib/components/ChangeEmailModal.svelte';
 	import ChangePasswordModal from '$lib/components/ChangePasswordModal.svelte';
 	import type { SvelteComponent } from 'svelte';
 
-	function handleNameInputChange() {
-		if (name) {
-			hasChanged = true;
-		} else {
-			hasChanged = false;
-		}
-	}
+	async function handleSave() {
+		const id = $currentUser!.id;
 
-	function handleSave() {
-		setName(name).then(() => {
-			name = '';
-			hasChanged = false;
-		});
+		await pb.collection('users').update(id, { name: name });
+		reset();
 	}
 
 	async function handleDelete() {
-		const id = pb.authStore.record!.id;
+		const id = $currentUser!.id;
+
 		await pb.collection('users').delete(id);
-		pb.authStore.clear()
+		pb.authStore.clear();
 		goto('/');
 	}
 
+	function reset() {
+		name = '';
+	}
+
 	let name = $state('');
-	let hasChanged = $state(false);
+	let hasChanged = $derived.by(() => (name.length > 0 ? true : false));
 	let changeEmailModal: SvelteComponent;
 	let changePasswordModal: SvelteComponent;
 </script>
@@ -45,7 +42,6 @@
 				<label for="name" class="label font-bold">Name</label>
 				<input
 					type="text"
-					oninput={handleNameInputChange}
 					class="input input-bordered w-full"
 					placeholder={$currentUser!.name}
 					bind:value={name}

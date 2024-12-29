@@ -5,7 +5,7 @@
 		dialogElement.showModal();
 	}
 
-	function reset() {
+	function close() {
 		formElement.reset();
 	}
 
@@ -16,7 +16,9 @@
 			passwordConfirm: newPasswordConfirm,
 			oldPassword: currentPassword
 		};
+
 		await pb.collection('users').update(id, data);
+		close();
 	}
 
 	let newPassword = $state('');
@@ -26,9 +28,15 @@
 	let formElement: HTMLFormElement;
 </script>
 
-<dialog bind:this={dialogElement} onclose={reset} class="modal">
+<dialog bind:this={dialogElement} onclose={close} class="modal">
 	<div class="modal-box">
-		<form onsubmit={handleSubmit} method="dialog" action="" id="change-password">
+		<form
+			bind:this={formElement}
+			onsubmit={handleSubmit}
+			method="dialog"
+			action=""
+			id="change-password"
+		>
 			<div class="join join-vertical w-full">
 				<label for="new-password" class="label font-bold">New Password</label>
 				<input
