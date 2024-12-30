@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { currentUser } from '$lib/stores/user';
-	import { searchString, bookmarksFiltered } from '$lib/stores/bookmarks';
+	import { searchString } from '$lib/stores/bookmarks';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import BookmarkFormModal from './BookmarkFormModal.svelte';
@@ -18,17 +18,33 @@
 	let bookmarkFormModal: SvelteComponent;
 </script>
 
-<div class="navbar bg-base-100">
+<BookmarkFormModal bind:this={bookmarkFormModal} />
+
+<!-- Navbar for screensize < sm  -->
+<div class="navbar sm:hidden">
+	{#if $currentUser && page.url.pathname === '/bookmarks'}
+		<input
+			class="input input-md input-bordered mx-3 w-full"
+			placeholder="Search"
+			bind:value={$searchString}
+		/>
+		<button class="btn btn-md mr-3" onclick={handleCreate}
+			>Add <BookmarkIcon class="size-4" /></button
+		>
+	{/if}
+</div>
+
+<!-- Navbar for screen size > sm -->
+<div class="hidden bg-base-100 sm:navbar">
 	<div class="navbar-start">
 		<a class="btn btn-ghost text-xl" href="/">remembit</a>
 	</div>
 
 	{#if $currentUser}
 		{#if page.url.pathname === '/bookmarks'}
-			<BookmarkFormModal bind:this={bookmarkFormModal} />
-			<div class="navbar-center">
+			<div class="sm:navbar-center">
 				<input
-					class="input input-md input-bordered mx-3"
+					class="input input-md input-bordered mx-3 w-full"
 					placeholder="Search"
 					bind:value={$searchString}
 				/>
@@ -38,7 +54,7 @@
 			</div>
 		{/if}
 		<div class="navbar-end">
-			<div class="nav-end flex-none gap-2">
+			<div class="nav-end gap-2">
 				<div class="dropdown dropdown-end">
 					<div tabindex="0" role="button" class="avatar btn btn-circle btn-ghost">
 						<div class="w-10 rounded-full">
