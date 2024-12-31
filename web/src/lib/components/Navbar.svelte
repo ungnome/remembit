@@ -59,7 +59,7 @@
 							/>
 						</div>
 					</div>
-					<ul class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
+					<ul tabindex="-1" class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
 						<li><a href="/account">Account</a></li>
 						<li><a href="/signout">Sign Out</a></li>
 					</ul>
