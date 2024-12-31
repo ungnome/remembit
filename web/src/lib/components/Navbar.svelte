@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { currentUser } from '$lib/stores/user';
 	import { searchString } from '$lib/stores/bookmarks';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import BookmarkFormModal from './BookmarkFormModal.svelte';
 	import BookmarkIcon from '$lib/icons/bookmark.svelte';
 	import type { SvelteComponent } from 'svelte';
-
-	function handleSignout() {
-		goto('/signout');
-	}
 
 	function handleCreate() {
 		bookmarkFormModal.showCreateModal();
@@ -66,7 +61,7 @@
 					</div>
 					<ul class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
 						<li><a href="/account">Account</a></li>
-						<li><a href="/signin" onclick={handleSignout}>Sign Out</a></li>
+						<li><a href="/signout">Sign Out</a></li>
 					</ul>
 				</div>
 			</div>
