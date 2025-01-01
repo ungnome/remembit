@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
+	import { gravatar } from '$lib/stores/user';
 	import BookmarkIcon from '$lib/icons/bookmark.svelte';
-	import PlusSquareIcon from '$lib/icons/plus-square.svelte';
 	import BookmarkFormModal from './BookmarkFormModal.svelte';
 	import type { SvelteComponent } from 'svelte';
 
@@ -26,10 +26,10 @@
 	</button>
 	<button onclick={() => goto('/account')} class:active={activeNav.account}>
 		<div class="avatar">
-			<div class="w-8 rounded-full">
+			<div class="ring-primary ring-offset-base-100 w-6 rounded-full ring ring-offset-2">
 				<img
-					alt="Tailwind CSS Navbar component"
-					src="https://gravatar.com/avatar/qweopiruqpoiuqeri"
+					alt="Avatar"
+					src={$gravatar}
 				/>
 			</div>
 		</div>

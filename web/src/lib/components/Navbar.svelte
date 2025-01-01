@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentUser } from '$lib/stores/user';
+	import { currentUser, gravatar } from '$lib/stores/user';
 	import { searchString } from '$lib/stores/bookmarks';
 	import { page } from '$app/state';
 	import BookmarkFormModal from './BookmarkFormModal.svelte';
@@ -52,14 +52,17 @@
 			<div class="nav-end gap-2">
 				<div class="dropdown dropdown-end">
 					<div tabindex="0" role="button" class="avatar btn btn-circle btn-ghost">
-						<div class="w-10 rounded-full">
+						<div class="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
 							<img
-								alt="Tailwind CSS Navbar component"
-								src="https://gravatar.com/avatar/qweopiruqpoiuqeri"
+								alt="Avatar"
+								src={$gravatar}
 							/>
 						</div>
 					</div>
-					<ul tabindex="-1" class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
+					<ul
+						tabindex="-1"
+						class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+					>
 						<li><a href="/account">Account</a></li>
 						<li><a href="/signout">Sign Out</a></li>
 					</ul>
