@@ -1,0 +1,14 @@
+{
+	"name": "remembit",
+	"short_name": "remembit",
+	"start_url": "/",
+	"display": "standalone",
+	"prefer_related_applications": false,
+	"icons": [
+		{
+			"src": "remembit_256x256.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	]
+}
