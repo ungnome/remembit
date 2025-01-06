@@ -1,4 +1,4 @@
-FROM alpine:3.20.1 AS base
+FROM alpine:3.21.0 AS base
 
 
 ############################# Pocketbase #######################################
@@ -6,7 +6,7 @@ FROM base AS pocketbase
 
 ARG TARGETOS
 ARG TARGETARCH
-ARG PB_VERSION=0.22.18
+ARG PB_VERSION=0.24.1
 ARG PB_ZIP_FILE="pocketbase_${PB_VERSION}_${TARGETOS}_${TARGETARCH}.zip"
 
 RUN apk add --no-cache unzip ca-certificates
