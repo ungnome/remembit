@@ -13,7 +13,7 @@ services:
     command: ['serve', '--dev', '--http=0.0.0.0:8080']
     volumes:
       - type: bind
-        source: ../backend/pocketbase/pb_migrations
+        source: ../pocketbase/pb_migrations
         target: /pb/pb_migrations
       - type: bind
         source: ./local-dev-pb_data
