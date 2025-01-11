@@ -3,8 +3,7 @@ name: local-dev
 services:
   remembit:
     build:
-      context: ../
-      dockerfile: deploy/Dockerfile
+      dockerfile: Dockerfile
       target: pocketbase
     expose:
       - '8080'
@@ -13,8 +12,11 @@ services:
     command: ['serve', '--dev', '--http=0.0.0.0:8080']
     volumes:
       - type: bind
-        source: ../pocketbase/pb_migrations
+        source: pocketbase/pb_migrations
         target: /pb/pb_migrations
-      - type: bind
-        source: ./local-dev-pb_data
+      - type: volume
+        source: pb_data
         target: /pb/pb_data
+
+volumes:
+  pb_data: {}

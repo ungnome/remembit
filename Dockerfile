@@ -21,15 +21,15 @@ ENTRYPOINT ["/pb/pocketbase"]
 ######################### Pocketbase Migrations ###############################
 FROM pocketbase AS pocketbase-migrations
 
-COPY ../backend/pocketbase/pb_migrations ./pb/pb_migrations
+COPY pocketbase/pb_migrations ./pb/pb_migrations
 
 EXPOSE 8080
 ENTRYPOINT ["/pb/pocketbase"]
 
 ######################### Remembit App ########################################
-FROM pocketbase-migrations as app
+FROM pocketbase-migrations AS app
 
-COPY ../web/build ./pb/pb_public
+COPY web/build ./pb/pb_public
 
 EXPOSE 8080
 ENTRYPOINT ["/pb/pocketbase"]
