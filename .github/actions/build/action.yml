@@ -44,13 +44,24 @@ runs:
     - name: setup buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: build and push
-      id: push
+    - name: only build image
+      if: ${{ inputs.image-push == 'false' }}
       uses: docker/build-push-action@v6
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: ${{ inputs.image-push }}
+        push: false
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: build and push image
+      id: push
+      if: ${{ inputs.image-push == 'true' }}
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
