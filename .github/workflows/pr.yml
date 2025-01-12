@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: build
-        uses: /.github/actions/build
+        uses: ./.github/actions/build
         with:
           mode: ci
           image-tag: remembit-ci
