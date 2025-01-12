@@ -30,6 +30,6 @@ jobs:
       - name: build
         uses: ./.github/actions/build
         with:
-          mode: production
+          vite-mode: staging
           image-tag: remembit-ci
           image-push: false

@@ -5,7 +5,7 @@ inputs:
   image-tag:
     required: true
     description: image tag to publish
-  image-publish:
+  image-push:
     required: true
     description: '"true" or "false"'
   vite-mode:
@@ -38,5 +38,5 @@ runs:
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: ${{ inputs.image-publish }}
+        push: ${{ inputs.image-push }}
         tags: ${{ inputs.image-tag }}
