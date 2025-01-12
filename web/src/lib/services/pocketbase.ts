@@ -1,11 +1,11 @@
 import PocketBase from 'pocketbase';
 import type { RecordService } from 'pocketbase';
-import { env } from '$env/dynamic/public';
+import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
 export { pb };
 export type { Bookmark };
 
-const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL) as TypedPocketBase;
+const pb = new PocketBase(PUBLIC_POCKETBASE_URL) as TypedPocketBase;
 
 interface Bookmark {
 	id: string;
