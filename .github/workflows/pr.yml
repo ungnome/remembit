@@ -1,7 +1,7 @@
-name: pr-linter
+name: pr
 
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
@@ -12,10 +12,23 @@ permissions:
   pull-requests: read
 
 jobs:
-  pr-title:
+  pr-title-linter:
     name: lint pr title
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: build
+        uses: /.github/actions/build
+        with:
+          mode: ci
+          image-tag: remembit-ci

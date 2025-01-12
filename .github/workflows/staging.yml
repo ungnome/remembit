@@ -1,0 +1,41 @@
+name: staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  staging:
+    name: staging
+    environment:
+      name: staging
+      url: https://stg.remembit.app
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/ungnome/remembit:main-branch
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: signin to ghcr
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build
+        uses: /.github/actions/build
+        with:
+          mode: publish
+          image-tag: ${{ env.IMAGE }}
+
+      - name: setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: fly deploy
+        run: flyctl deploy --config fly-staging.toml --image ${{ env.IMAGE }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
