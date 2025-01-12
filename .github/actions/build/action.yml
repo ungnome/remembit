@@ -69,6 +69,6 @@ runs:
       if: ${{ inputs.image-push == 'true' }}
       uses: actions/attest-build-provenance@v2
       with:
-        subject-name: ${{ inputs.image-registry }}/{{ inputs.image-name }}
+        subject-name: ${{ inputs.image-registry }}/${{ inputs.image-name }}
         subject-digest: ${{ steps.push.outputs.digest }}
         push-to-registry: true
