@@ -9,14 +9,15 @@ services:
       - '8080'
     ports:
       - '127.0.0.1:8080:8080'
-    command: ['serve', '--dev', '--http=0.0.0.0:8080']
+    environment:
+      PB_SETTINGS_ENCRYPTION_KEY: QHz6zxNGrJSoY6C4gWCosj8HwcX5dWkT
     volumes:
       - type: bind
         source: pocketbase/pb_migrations
-        target: /pb/pb_migrations
+        target: /remembit/pb_migrations
       - type: volume
         source: pb_data
-        target: /pb/pb_data
+        target: /remembit/pb_data
 
 volumes:
   pb_data: {}
