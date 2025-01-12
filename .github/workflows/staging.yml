@@ -34,7 +34,7 @@ jobs:
         with:
           image-registry: ghcr.io
           image-name: ungnome/remembit
-          impage-push: true
+          image-push: true
           vite-mode: staging
 
       - name: setup flyctl
