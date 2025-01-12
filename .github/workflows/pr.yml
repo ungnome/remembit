@@ -30,5 +30,6 @@ jobs:
       - name: build
         uses: ./.github/actions/build
         with:
-          mode: ci
+          mode: production
           image-tag: remembit-ci
+          image-push: false
