@@ -2,9 +2,12 @@ name: build
 description: builds and optionally publishes remembit docker image
 
 inputs:
-  image-tag:
+  image-registry:
     required: true
-    description: image tag to publish
+    description: 'image registry url eg: ghcr.io'
+  image-name:
+    required: true
+    description: 'image name eg: namespace/image'
   image-push:
     required: true
     description: '"true" or "false"'
@@ -27,16 +30,34 @@ runs:
         pnpm install
         pnpm run build --mode ${{ inputs.vite-mode }}
 
+      # this will figure out tag based on event
+      # https://github.com/docker/metadata-action?tab=readme-ov-file#basic
+    - name: image metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        image: ${{ inputs.image-registry }}/${{ inputs.image-name }}
+
     - name: setup qemu
       uses: docker/setup-qemu-action@v3
 
     - name: setup buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: build
+    - name: build and push
+      id: push
       uses: docker/build-push-action@v6
       with:
         context: .
         platforms: linux/amd64,linux/arm64
         push: ${{ inputs.image-push }}
-        tags: ${{ inputs.image-tag }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: generate image attestation
+      if: ${{ inputs.image-push == 'true' }}
+      uses: actions/attest-build-provenance@v2
+      with:
+        subject-name: ${{ inputs.image-registry }}/{{ inputs.image-name }}
+        subject-digest: ${{ steps.push.outputs.digest }}
+        push-to-registry: true

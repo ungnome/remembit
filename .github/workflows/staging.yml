@@ -12,6 +12,11 @@ jobs:
       name: staging
       url: https://stg.remembit.app
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: checkout code
         uses: actions/checkout@v4
@@ -23,17 +28,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+        # this should push an image with branch name as the tag
       - name: build
         uses: ./.github/actions/build
         with:
+          image-registry: ghcr.io
+          image-name: ungnome/remembit
+          impage-push: true
           vite-mode: staging
-          image-tag: ghcr.io/ungnome/remembit:main-branch
-          image-push: true
 
       - name: setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: fly deploy
-        run: flyctl deploy --config fly-staging.toml --image ghcr.io/ungnome/remembit:main-branch
+        run: flyctl deploy --config fly-staging.toml --image ghcr.io/ungnome/remembit:${{ github.ref_name }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
