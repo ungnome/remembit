@@ -5,9 +5,12 @@ inputs:
   image-tag:
     required: true
     description: image tag to publish
-  mode:
+  image-push:
     required: true
-    description: '"ci" or "publish"'
+    description: '"true" or "false"'
+  vite-mode:
+    required: true
+    description: '"production" or "staging"'
 
 runs:
   using: composite
@@ -22,7 +25,7 @@ runs:
       shell: bash
       run: |
         pnpm install
-        pnpm run build
+        pnpm run build --mode ${{ inputs.vite-mode }}
 
     - name: setup qemu
       uses: docker/setup-qemu-action@v3
@@ -30,19 +33,10 @@ runs:
     - name: setup buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: ci
-      if: ${{ inputs.mode == "ci" }}
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        platforms: linux/amd64,linux/arm64
-        push: false
-
     - name: build
-      if: ${{ inputs.mode == "publish" }}
       uses: docker/build-push-action@v6
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: true
+        push: ${{ inputs.image-push }}
         tags: ${{ inputs.image-tag }}

@@ -28,7 +28,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: build
-        uses: /.github/actions/build
+        uses: ./.github/actions/build
         with:
-          mode: ci
+          vite-mode: staging
           image-tag: remembit-ci
+          image-push: false
