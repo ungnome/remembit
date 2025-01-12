@@ -36,7 +36,7 @@ runs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        image: ${{ inputs.image-registry }}/${{ inputs.image-name }}
+        images: ${{ inputs.image-registry }}/${{ inputs.image-name }}
 
     - name: setup qemu
       uses: docker/setup-qemu-action@v3
