@@ -30,6 +30,8 @@ jobs:
       - name: build
         uses: ./.github/actions/build
         with:
-          vite-mode: staging
-          image-tag: remembit-ci
+          image-registry: ghcr.io
+          image-name: ungnome/remembit
           image-push: false
+          vite-mode: staging
+          
