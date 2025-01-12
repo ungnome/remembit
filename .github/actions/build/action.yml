@@ -31,7 +31,7 @@ runs:
       uses: docker/setup-buildx-action@v3
 
     - name: ci
-      if: ${{ inputs.mode == "ci" }}
+      if: ${{ inputs.mode == 'ci' }}
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -39,7 +39,7 @@ runs:
         push: false
 
     - name: build
-      if: ${{ inputs.mode == "publish" }}
+      if: ${{ inputs.mode == 'publish' }}
       uses: docker/build-push-action@v6
       with:
         context: .
