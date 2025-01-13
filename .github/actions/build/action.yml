@@ -71,4 +71,4 @@ runs:
       with:
         subject-name: ${{ inputs.image-registry }}/${{ inputs.image-name }}
         subject-digest: ${{ steps.push.outputs.digest }}
-        push-to-registry: true
+        push-to-registry: false
