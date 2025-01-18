@@ -38,40 +38,39 @@
 	<div class="grid w-full sm:w-[35rem]">
 		<h2 class="justify-self-center text-xl font-bold">Account</h2>
 
-		<label for="name" class="label font-bold">Name</label>
+		<label for="name" class="daisyui-label font-bold">Name</label>
 		<input
 			type="text"
-			class="input input-bordered"
+			class="daisyui-input daisyui-input-bordered"
 			placeholder={$currentUser!.name}
 			bind:value={name}
 		/>
 
-		<label for="email" class="label font-bold">Email</label>
+		<label for="email" class="daisyui-label font-bold">Email</label>
 		<span class="mb-2">{$currentUser!.email}</span>
 		<button
 			onclick={() => {
 				changeEmailModal.show();
 			}}
-			class="btn max-w-xs">Change Email</button
+			class="daisyui-btn max-w-xs">Change Email</button
 		>
 
-		<label for="change-password" class="label font-bold">Password</label>
+		<label for="change-password" class="daisyui-label font-bold">Password</label>
 		<button
 			id="change-password"
 			onclick={() => {
 				changePasswordModal.show();
 			}}
-			class="btn max-w-xs">Change Password</button
+			class="daisyui-btn max-w-xs">Change Password</button
 		>
 
-		<div class="divider"></div>
+		<div class="daisyui-divider"></div>
 
 		<div class="flex justify-between">
-			<button onclick={handleDelete} class="btn btn-outline btn-error">Delete Account</button>
-			<button onclick={handleSave} class="btn {hasChanged ? 'btn-primary' : 'btn-disabled'}"
+			<button onclick={handleDelete} class="daisyui-btn daisyui-btn-outline daisyui-btn-error">Delete Account</button>
+			<button onclick={handleSave} class="daisyui-btn {hasChanged ? 'daisyui-btn-primary' : 'daisyui-btn-disabled'}"
 				>Save
 			</button>
 		</div>
 	</div>
-	<button class="sm:hidden btn btn-primary btn-wide">Sign-Out</button>
 </div>

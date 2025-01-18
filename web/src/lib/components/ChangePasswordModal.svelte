@@ -28,8 +28,8 @@
 	let formElement: HTMLFormElement;
 </script>
 
-<dialog bind:this={dialogElement} onclose={close} class="modal">
-	<div class="modal-box">
+<dialog bind:this={dialogElement} onclose={close} class="daisyui-modal">
+	<div class="daisyui-modal-box">
 		<form
 			bind:this={formElement}
 			onsubmit={handleSubmit}
@@ -37,47 +37,47 @@
 			action=""
 			id="change-password"
 		>
-			<div class="join join-vertical w-full">
-				<label for="new-password" class="label font-bold">New Password</label>
+			<div class="daisyui-join daisyui-join-vertical w-full">
+				<label for="new-password" class="daisyui-label font-bold">New Password</label>
 				<input
 					id="new-password"
 					type="password"
 					required
 					bind:value={newPassword}
-					class="input input-bordered"
+					class="daisyui-input daisyui-input-bordered"
 				/>
 			</div>
 
-			<div class="join join-vertical w-full">
-				<label for="new-password-confirm" class="label font-bold">Confirm New Password</label>
+			<div class="daisyui-join daisyui-join-vertical w-full">
+				<label for="new-password-confirm" class="daisyui-label font-bold">Confirm New Password</label>
 				<input
 					id="new-password-confirm"
 					type="password"
 					required
 					bind:value={newPasswordConfirm}
-					class="input input-bordered"
+					class="daisyui-input daisyui-input-bordered"
 				/>
 			</div>
 
-			<div class="join join-vertical w-full">
-				<label for="current-password" class="label font-bold">Current Password</label>
+			<div class="daisyui-join daisyui-join-vertical w-full">
+				<label for="current-password" class="daisyui-label font-bold">Current Password</label>
 				<input
 					id="current-password"
 					type="password"
 					required
 					bind:value={currentPassword}
-					class="input input-bordered"
+					class="daisyui-input daisyui-input-bordered"
 				/>
 			</div>
 		</form>
-		<div class="modal-action justify-between">
+		<div class="daisyui-modal-action justify-between">
 			<button
 				onclick={() => {
 					dialogElement.close();
 				}}
 				class="btn">Cancel</button
 			>
-			<button type="submit" form="change-password" class="btn btn-primary">Submit</button>
+			<button type="submit" form="change-password" class="daisyui-btn daisyui-btn-primary">Submit</button>
 		</div>
 	</div>
 </dialog>
