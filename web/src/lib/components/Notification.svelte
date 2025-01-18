@@ -12,8 +12,8 @@
 	let { message, type }: Props = $props();
 </script>
 
-<div class="toast toast-center toast-bottom z-50">
-	<div role="alert" class="alert alert-warning">
+<div class="daisyui-toast daisyui-toast-center daisyui-toast-bottom z-50">
+	<div role="alert" class="daisyui-alert daisyui-alert-warning">
 		{#if type === 'info'}
 			<InfoIcon />
 		{:else if type === 'success'}

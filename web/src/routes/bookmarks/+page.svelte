@@ -10,7 +10,7 @@
 
 <BookmarkFormModal bind:this={bookmarkFormModal} />
 
-<table class="table">
+<table class="daisyui-table">
 	<!-- head -->
 	<thead>
 		<tr>
@@ -30,10 +30,10 @@
 				<td>{bookmark.name}</td>
 				<td>{bookmark.url}</td>
 				<td class="text-end">
-					<ul class="menu menu-horizontal rounded-box p-0">
+					<ul class="daisyui-menu daisyui-menu-horizontal rounded-box p-0">
 						<li>
 							<button
-								class="btn btn-ghost btn-sm"
+								class="daisyui-btn daisyui-btn-ghost daisyui-btn-sm"
 								on:click|stopPropagation={() => {
 									bookmarkFormModal.showEditModal(bookmark.id);
 								}}
@@ -43,7 +43,7 @@
 						</li>
 						<li>
 							<button
-								class="btn btn-ghost btn-error btn-sm"
+								class="daisyui-btn daisyui-btn-ghost daisyui-btn-error daisyui-btn-sm"
 								on:click|stopPropagation={async () => {
 									await deleteBookmark(bookmark.id);
 								}}
