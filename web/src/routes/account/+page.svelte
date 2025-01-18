@@ -73,5 +73,4 @@
 			</button>
 		</div>
 	</div>
-	<button class="sm:hidden daisyui-btn daisyui-btn-primary daisyui-btn-wide">Sign-Out</button>
 </div>

@@ -53,7 +53,10 @@
 	}
 </script>
 
-<dialog class="daisyui-modal" bind:this={bookmarkFormDialog}>
+<dialog
+	class="daisyui-modal daisyui-modal-bottom sm:daisyui-modal-middle"
+	bind:this={bookmarkFormDialog}
+>
 	<div class="daisyui-modal-box">
 		<h3 class="mb-6 text-lg font-bold capitalize">{dialogType} Bookmark</h3>
 		<form on:submit={handleSubmit} action="" method="dialog">
