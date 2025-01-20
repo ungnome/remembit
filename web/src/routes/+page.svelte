@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { currentUser } from '$lib/stores/user';
+	import user from '$lib/stores/user.svelte';
 	import { goto } from '$app/navigation';
 
-	if ($currentUser) {
-		goto('/bookmarks')
+	if (user.isValid) {
+		goto('/bookmarks');
 	}
 </script>
 

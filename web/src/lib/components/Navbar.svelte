@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { currentUser, gravatar } from '$lib/stores/user';
+	import user from '$lib/stores/user.svelte';
+
 </script>
 
-{#if $currentUser}
+{#if user.isValid}
 	<nav class="daisyui-navbar sticky top-0 z-10 flex justify-between gap-5 bg-base-100">
 		<div class="daisyui-navbar-start">
 			<a class="daisyui-btn daisyui-btn-ghost text-xl" href="/">remembit</a>
@@ -16,7 +17,7 @@
 					class="daisyui-avatar daisyui-btn daisyui-btn-circle daisyui-btn-ghost"
 				>
 					<div class="w-8 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
-						<img alt="Avatar" src={$gravatar} />
+						<img alt="" src={user.gravatar} />
 					</div>
 				</div>
 				<ul
