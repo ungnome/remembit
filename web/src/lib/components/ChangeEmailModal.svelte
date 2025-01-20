@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { currentUser } from '$lib/stores/user';
 	import { pb } from '$lib/services/pocketbase';
 
 	export function show() {
@@ -19,14 +18,6 @@
 			newEmailConfirmInputElement.setCustomValidity('');
 		} else {
 			newEmailConfirmInputElement.setCustomValidity('Must match New Email.');
-		}
-	}
-
-	function validatePassword() {
-		if (password === $currentUser?.password) {
-			passwordInputElement.setCustomValidity('');
-		} else {
-			passwordInputElement.setCustomValidity('Invalid password.');
 		}
 	}
 
@@ -74,7 +65,6 @@
 					required
 					bind:this={passwordInputElement}
 					bind:value={password}
-					oninput={validatePassword}
 					class="daisyui-input daisyui-input-bordered w-full"
 				/>
 			</div>
@@ -86,7 +76,9 @@
 				}}
 				class="daisyui-btn">Cancel</button
 			>
-			<button type="submit" form="change-email" class="daisyui-btn daisyui-btn-primary">Submit</button>
+			<button type="submit" form="change-email" class="daisyui-btn daisyui-btn-primary"
+				>Submit</button
+			>
 		</div>
 	</div>
 </dialog>

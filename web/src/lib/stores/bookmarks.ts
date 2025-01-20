@@ -1,5 +1,5 @@
 import { pb, type Bookmark } from '$lib/services/pocketbase';
-import { currentUser } from '$lib/stores/user';
+import user from '$lib/stores/user.svelte';
 import { get, writable, readonly, derived } from 'svelte/store';
 
 export {
@@ -29,10 +29,8 @@ function filterBookmarks(bookmarks: Bookmark[], searchString: string) {
 }
 
 async function createBookmark(name: string, url: string) {
-	const _user = get(currentUser);
-
 	await pb.collection('bookmarks').create({
-		owner: _user!.id,
+		owner: user.id,
 		name: name,
 		url: url
 	});
@@ -41,10 +39,8 @@ async function createBookmark(name: string, url: string) {
 }
 
 async function updateBookmark(id: string, name: string, url: string) {
-	const _user = get(currentUser);
-
 	await pb.collection('bookmarks').update(id, {
-		owner: _user!.id,
+		owner: user.id,
 		name: name,
 		url: url
 	});
