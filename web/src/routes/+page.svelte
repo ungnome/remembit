@@ -2,9 +2,11 @@
 	import user from '$lib/stores/user.svelte';
 	import { goto } from '$app/navigation';
 
-	if (user.isValid) {
-		goto('/bookmarks');
-	}
+	$effect(() => {
+		if (user.isValid) {
+			goto('/bookmarks');
+		}
+	});
 </script>
 
 <h1>Welcome to SvelteKit placeholder for remembit!</h1>
