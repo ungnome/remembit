@@ -1,4 +1,5 @@
 import { pb } from '$lib/services/pocketbase';
+import bookmarks from '$lib/stores/bookmarks.svelte';
 
 class User {
 	id = $state('');
@@ -58,6 +59,7 @@ pb.authStore.onChange(async () => {
 		user.isValid = pb.authStore.isValid;
 	} else {
 		user.reset();
+		bookmarks.reset();
 	}
 });
 
