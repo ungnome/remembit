@@ -1,22 +1,20 @@
 <script lang="ts">
-	import { createBookmark, updateBookmark, bookmarks } from '$lib/stores/bookmarks';
-	import type { Bookmark } from '$lib/services/pocketbase';
+	import { bookmarks, Bookmark } from '$lib/stores/bookmarks.svelte';
 
 	export function showEditModal(bookmarkId: string) {
 		resetModal();
-		bookmarkToEdit = $bookmarks.find(({ id }) => {
-			return id === bookmarkId;
+
+		bookmarkToEdit = bookmarks.all.find((bookmark) => {
+			return bookmark.id === bookmarkId;
 		});
 
 		if (bookmarkToEdit) {
+			dialogType = 'edit';
 			name = bookmarkToEdit.name;
 			url = bookmarkToEdit.url;
-			dialogType = 'update';
-
-			bookmarkFormDialog.showModal();
-		} else {
-			throw 'Bookmark to edit not found.';
 		}
+
+		bookmarkFormDialog.showModal();
 	}
 
 	export function showCreateModal() {
@@ -25,25 +23,27 @@
 		bookmarkFormDialog.showModal();
 	}
 
-	let dialogType: 'create' | 'update';
+	let dialogType: 'create' | 'edit';
 	let bookmarkFormDialog: HTMLDialogElement;
-	let bookmarkToEdit: undefined | Bookmark = undefined;
+	let bookmarkToEdit: undefined | Bookmark;
 	let name = '';
 	let url = '';
 
-	function handleSubmit() {
+	async function handleSubmit() {
 		switch (dialogType) {
 			case 'create':
-				createBookmark(name, url);
+				await bookmarks.create({ name: name, url: url });
 				break;
-			case 'update':
+			case 'edit':
 				if (bookmarkToEdit) {
-					updateBookmark(bookmarkToEdit.id, name, url);
+					await bookmarkToEdit.update({ name: name, url: url });
 				} else {
 					throw "Couldn't update bookmark!";
 				}
 				break;
 		}
+
+		await bookmarks.refresh();
 	}
 
 	function resetModal() {
