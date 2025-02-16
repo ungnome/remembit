@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { pb } from '$lib/services/pocketbase';
 	import { goto } from '$app/navigation';
+	import user from '$lib/stores/user.svelte';
 
-	let isSignedIn = pb.authStore.isValid;
 	let { children } = $props();
 
-	if (!isSignedIn) {
+	if (!user.isValid) {
 		goto('/signin');
 	}
 </script>
 
-{#if isSignedIn}
+{#if user.isValid}
 	{@render children?.()}
 {/if}
