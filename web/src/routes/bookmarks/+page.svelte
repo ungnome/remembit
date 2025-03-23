@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BookmarkFormModal from '$lib/components/BookmarkFormModal.svelte';
+  import BookmarkNewDialog from '$lib/components/BookmarkNewDialog.svelte';
   import { onMount, type SvelteComponent } from 'svelte';
   import bookmarks from '$lib/stores/bookmarks.svelte';
   import BookmarkTableRow from '$lib/components/BookmarkTableRow.svelte';
@@ -8,16 +8,16 @@
     bookmarks.refresh();
   });
 
-  let bookmarkFormModal: SvelteComponent;
+  let newBookmarkDialog: SvelteComponent;
   let bookmarkList = $derived(bookmarks.filtered.length > 0 ? bookmarks.filtered : bookmarks.all);
 
   function handleAdd() {
-    bookmarkFormModal.showCreateModal();
+    newBookmarkDialog.show();
     bookmarks.refresh();
   }
 </script>
 
-<BookmarkFormModal bind:this={bookmarkFormModal} />
+<BookmarkNewDialog bind:this={newBookmarkDialog} />
 
 <div class="mx-4 my-2 flex gap-4">
   <button class="daisyui-btn" onclick={handleAdd}>Add</button>
