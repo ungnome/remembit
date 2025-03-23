@@ -44,7 +44,7 @@
           type="password"
           required
           bind:value={newPassword}
-          class="daisyui-input daisyui-input-bordered"
+          class="daisyui-input"
         />
       </div>
 
@@ -57,7 +57,7 @@
           type="password"
           required
           bind:value={newPasswordConfirm}
-          class="daisyui-input daisyui-input-bordered"
+          class="daisyui-input"
         />
       </div>
 
@@ -68,7 +68,7 @@
           type="password"
           required
           bind:value={currentPassword}
-          class="daisyui-input daisyui-input-bordered"
+          class="daisyui-input"
         />
       </div>
     </form>
