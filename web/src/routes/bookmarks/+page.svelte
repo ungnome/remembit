@@ -24,7 +24,7 @@
   <input
     type="search"
     placeholder="Search"
-    class="daisyui-input daisyui-input-bordered flex-grow"
+    class="daisyui-input grow"
     bind:value={bookmarks.filter}
   />
 </div>

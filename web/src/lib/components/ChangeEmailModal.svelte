@@ -35,13 +35,7 @@
     <form id="change-email" bind:this={formElement} onsubmit={handleSubmit} action="">
       <div class="daisyui-join daisyui-join-vertical w-full">
         <label for="new-email" class="daisyui-label font-bold">New Email</label>
-        <input
-          id="new-email"
-          type="email"
-          required
-          bind:value={newEmail}
-          class="daisyui-input daisyui-input-bordered"
-        />
+        <input id="new-email" type="email" required bind:value={newEmail} class="daisyui-input" />
       </div>
 
       <div class="daisyui-join daisyui-join-vertical w-full">
@@ -53,7 +47,7 @@
           bind:value={newEmailConfirm}
           bind:this={newEmailConfirmInputElement}
           oninput={validateConfirmEmail}
-          class="daisyui-input daisyui-input-bordered w-full"
+          class="daisyui-input w-full"
         />
       </div>
 
@@ -65,7 +59,7 @@
           required
           bind:this={passwordInputElement}
           bind:value={password}
-          class="daisyui-input daisyui-input-bordered w-full"
+          class="daisyui-input w-full"
         />
       </div>
     </form>

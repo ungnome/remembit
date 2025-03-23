@@ -33,7 +33,7 @@
     <ul class="daisyui-menu daisyui-menu-horizontal rounded-box p-0">
       <li>
         <button class="daisyui-btn daisyui-btn-ghost daisyui-btn-sm" onclick={handleEdit}>
-          <EditIcon class="size-4 text-info" />
+          <EditIcon class="text-info size-4" />
         </button>
       </li>
       <li>
@@ -41,7 +41,7 @@
           class="daisyui-btn daisyui-btn-ghost daisyui-btn-error daisyui-btn-sm"
           onclick={handleDelete}
         >
-          <TrashIcon class="size-4 text-error" />
+          <TrashIcon class="text-error size-4" />
         </button>
       </li>
     </ul>

@@ -24,10 +24,10 @@
   <div class="daisyui-modal-box">
     <h3 class="mb-6 text-lg font-bold capitalize">Edit Bookmark</h3>
     <form onsubmit={submit} action="" method="dialog">
-      <label class="daisyui-input daisyui-input-bordered mb-2 flex items-center gap-2">
+      <label class="daisyui-input mb-2 flex items-center gap-2">
         <input bind:value={name} class="grow" type="text" placeholder="Name" required />
       </label>
-      <label class="daisyui-input daisyui-input-bordered mb-2 flex items-center gap-2">
+      <label class="daisyui-input mb-2 flex items-center gap-2">
         <input bind:value={url} class="grow" type="url" placeholder="Url" required />
       </label>
       <div class="daisyui-modal-action">

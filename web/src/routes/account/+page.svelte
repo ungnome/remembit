@@ -31,12 +31,7 @@
     <h2 class="justify-self-center text-xl font-bold">Account</h2>
 
     <label for="name" class="daisyui-label font-bold">Name</label>
-    <input
-      type="text"
-      class="daisyui-input daisyui-input-bordered"
-      placeholder={user.name}
-      bind:value={newName}
-    />
+    <input type="text" class="daisyui-input" placeholder={user.name} bind:value={newName} />
 
     <label for="email" class="daisyui-label font-bold">Email</label>
     <span class="mb-2">{user.email}</span>
