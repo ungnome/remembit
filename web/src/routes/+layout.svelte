@@ -1,8 +1,8 @@
 <script>
-	import '../app.css';
-	import Navbar from '$lib/components/Navbar.svelte';
+  import '../app.css';
+  import Navbar from '$lib/components/Navbar.svelte';
 
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 <Navbar />

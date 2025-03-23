@@ -8,14 +8,14 @@ export type { BookmarkRecord };
 const pb = new PocketBase(PUBLIC_POCKETBASE_URL) as TypedPocketBase;
 
 interface BookmarkRecord {
-	id: string;
-	created: string;
-	updated: string;
-	name: string;
-	url: string;
+  id: string;
+  created: string;
+  updated: string;
+  name: string;
+  url: string;
 }
 
 interface TypedPocketBase extends PocketBase {
-	collection(idOrName: string): RecordService;
-	collection(idOrName: 'bookmarks'): RecordService<BookmarkRecord>;
+  collection(idOrName: string): RecordService;
+  collection(idOrName: 'bookmarks'): RecordService<BookmarkRecord>;
 }
