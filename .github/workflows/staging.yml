@@ -5,42 +5,72 @@ on:
     branches:
       - main
 
+env:
+  DOCKERHUB_REPOSITORY: ungnome/remembit
+
 jobs:
   staging:
     name: staging
-    environment:
-      name: staging
-      url: https://stg.remembit.app
+    environment: staging
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
     steps:
       - name: checkout code
         uses: actions/checkout@v4
 
-      - name: signin to ghcr
+      - name: setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: login to docker hub
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-        # this should push an image with branch name as the tag
-      - name: build
-        uses: ./.github/actions/build
+      - name: configure .env
+        shell: bash
+        working-directory: web
+        run: |
+          echo "configuring .env"
+          echo "PUBLIC_POCKETBASE_URL=${{ vars.PUBLIC_POCKETBASE_URL }}" > .env
+
+      - name: build web
+        working-directory: web
+        shell: bash
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: image metadata
+        id: image-metadata
+        uses: docker/metadata-action@v5
         with:
-          image-registry: ghcr.io
-          image-name: ungnome/remembit
-          image-push: true
-          vite-mode: staging
+          images: ${{ env.DOCKERHUB_REPOSITORY }}
+
+      - name: setup qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: setup buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: build and publish image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.image-metadata.outputs.tags }}
+          labels: ${{ steps.image-metadata.outputs.labels }}
 
       - name: setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: fly deploy
-        run: flyctl deploy --config fly-staging.toml --image ghcr.io/ungnome/remembit:${{ github.ref_name }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          IMAGE_REPOSITORY: ${{ env.DOCKERHUB_REPOSITORY }}
+          IMAGE_TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          flyctl deploy --config fly-staging.toml --image $IMAGE_REPOSITORY:$IMAGE_TAG
