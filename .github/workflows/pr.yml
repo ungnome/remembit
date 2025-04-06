@@ -23,6 +23,7 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    environment: pull-request
     steps:
       - name: checkout code
         uses: actions/checkout@v4
