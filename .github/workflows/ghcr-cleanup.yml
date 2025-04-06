@@ -1,0 +1,15 @@
+name: ghcr cleanup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cleanup
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: remembit
+          package-type: container
+          min-versions-to-keep: 0
