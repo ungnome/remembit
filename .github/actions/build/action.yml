@@ -2,18 +2,12 @@ name: build
 description: builds and optionally publishes remembit docker image
 
 inputs:
-  image-registry:
-    required: true
-    description: 'image registry url eg: ghcr.io'
-  image-name:
+  image:
     required: true
     description: 'image name eg: namespace/image'
-  image-push:
+  push:
     required: true
     description: '"true" or "false"'
-  vite-mode:
-    required: true
-    description: '"production" or "staging"'
 
 runs:
   using: composite
@@ -23,12 +17,17 @@ runs:
       with:
         version: 9
 
+    - name: configure .env
+      shell: bash
+      run: |
+        echo "PUBLIC_POCKETBASE_URL=${{ env.PUBLIC_POCKETBASE_URL }}" > .env
+
     - name: build web
       working-directory: web
       shell: bash
       run: |
         pnpm install
-        pnpm run build --mode ${{ inputs.vite-mode }}
+        pnpm run build
 
       # this will figure out tag based on event
       # https://github.com/docker/metadata-action?tab=readme-ov-file#basic
@@ -36,7 +35,7 @@ runs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: ${{ inputs.image-registry }}/${{ inputs.image-name }}
+        images: ${{ inputs.image }}
 
     - name: setup qemu
       uses: docker/setup-qemu-action@v3
@@ -44,31 +43,11 @@ runs:
     - name: setup buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: only build image
-      if: ${{ inputs.image-push == 'false' }}
+    - name: build and publish image
       uses: docker/build-push-action@v6
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: false
+        push: ${{ fromJSON(inputs.push) }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
-    - name: build and push image
-      id: push
-      if: ${{ inputs.image-push == 'true' }}
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        platforms: linux/amd64,linux/arm64
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-
-    - name: generate image attestation
-      if: ${{ inputs.image-push == 'true' }}
-      uses: actions/attest-build-provenance@v2
-      with:
-        subject-name: ${{ inputs.image-registry }}/${{ inputs.image-name }}
-        subject-digest: ${{ steps.push.outputs.digest }}
-        push-to-registry: false

@@ -15,10 +15,10 @@ jobs:
   pr-title-linter:
     name: lint pr title
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: amannn/action-semantic-pull-request@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: build
@@ -30,8 +30,5 @@ jobs:
       - name: build
         uses: ./.github/actions/build
         with:
-          image-registry: ghcr.io
-          image-name: ungnome/remembit
-          image-push: false
-          vite-mode: staging
-          
+          image: ungnome/remembit
+          push: false
