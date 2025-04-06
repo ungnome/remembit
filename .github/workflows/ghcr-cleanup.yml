@@ -3,6 +3,8 @@ name: ghcr cleanup
 on:
   workflow_dispatch:
 
+permissions: 
+  packages: write
 jobs:
   cleanup:
     runs-on: ubuntu-latest
