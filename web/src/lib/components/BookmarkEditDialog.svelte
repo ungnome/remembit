@@ -20,12 +20,12 @@
 <dialog class="daisyui-modal daisyui-modal-bottom sm:daisyui-modal-middle" bind:this={dialogElement}>
   <div class="daisyui-modal-box">
     <h3 class="mb-6 text-lg font-bold capitalize">Edit Bookmark</h3>
-    <form onsubmit={submit} action="" method="dialog" class="flex flex-col gap-2">
-      <label class="daisyui-floating-label mb-2 flex items-center gap-2">
+    <form onsubmit={submit} action="" method="dialog" >
+      <label class="daisyui-floating-label mb-6 flex items-center">
         <span>Name</span>
         <input bind:value={name} class="daisyui-input grow" type="text" placeholder="Name" required />
       </label>
-      <label class="daisyui-floating-label mb-2 flex items-center gap-2">
+      <label class="daisyui-floating-label flex items-center">
         <span>Url</span>
         <input bind:value={url} class="daisyui-input grow" type="url" placeholder="Url" required />
       </label>
