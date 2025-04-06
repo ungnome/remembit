@@ -21,7 +21,7 @@ runs:
       shell: bash
       run: |
         echo "configuring .env file"
-        echo "PUBLIC_POCKETBASE_URL=${{ var.PUBLIC_POCKETBASE_URL }}" > .env
+        echo "PUBLIC_POCKETBASE_URL=${{ vars.PUBLIC_POCKETBASE_URL }}" > .env
 
     - name: build web
       working-directory: web
