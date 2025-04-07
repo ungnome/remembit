@@ -28,10 +28,16 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23
+          cache: 'pnpm'
+
       - name: setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 10
 
       - name: configure .env
         shell: bash
@@ -67,3 +73,5 @@ jobs:
           push: false
           tags: ${{ steps.image-metadata.outputs.tags }}
           labels: ${{ steps.image-metadata.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
