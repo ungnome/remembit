@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ChangeEmailModal from '$lib/components/ChangeEmailModal.svelte';
-  import ChangePasswordModal from '$lib/components/ChangePasswordModal.svelte';
+  import ChangeEmailDialog from '$lib/components/ChangeEmailDialog.svelte';
+  import ChangePasswordDialog from '$lib/components/ChangePasswordDialog.svelte';
   import type { SvelteComponent } from 'svelte';
   import user from '$lib/stores/user.svelte';
   import { goto } from '$app/navigation';
@@ -23,8 +23,8 @@
   }
 </script>
 
-<ChangeEmailModal bind:this={changeEmailModal} />
-<ChangePasswordModal bind:this={changePasswordModal} />
+<ChangeEmailDialog bind:this={changeEmailModal} />
+<ChangePasswordDialog bind:this={changePasswordModal} />
 
 <div class="mx-4 grid place-items-center space-y-96 sm:mx-0">
   <div class="grid w-full sm:w-[35rem]">

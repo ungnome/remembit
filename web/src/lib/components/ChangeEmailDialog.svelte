@@ -26,7 +26,6 @@
   let password = $state('');
   let dialogElement: HTMLDialogElement;
   let formElement: HTMLFormElement;
-  let passwordInputElement: HTMLInputElement;
   let newEmailConfirmInputElement: HTMLInputElement;
 </script>
 
@@ -34,7 +33,7 @@
   <div class="daisyui-modal-box">
     <h3 class="mb-6 text-lg font-bold capitalize">Change Email</h3>
 
-    <form bind:this={formElement} onsubmit={handleSubmit} action="" class="flex flex-col gap-6">
+    <form method="dialog" bind:this={formElement} onsubmit={handleSubmit} class="flex flex-col gap-6">
       <label class="daisyui-floating-label flex">
         <span>New Email</span>
         <input
@@ -49,6 +48,7 @@
       <label class="daisyui-floating-label flex">
         <span>Confirm New Email</span>
         <input
+          id="new-email-confirm-input"
           type="email"
           required
           bind:value={newEmailConfirm}
@@ -64,7 +64,6 @@
         <input
           type="password"
           required
-          bind:this={passwordInputElement}
           bind:value={password}
           placeholder="Password"
           class="daisyui-input grow"
