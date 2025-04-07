@@ -42,4 +42,8 @@
       </div>
     </form>
   </div>
+
+  <form method="dialog" class="daisyui-modal-backdrop">
+    <button>close</button>
+  </form>
 </dialog>

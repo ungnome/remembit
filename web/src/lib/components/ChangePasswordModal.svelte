@@ -30,28 +30,14 @@
 
 <dialog bind:this={dialogElement} onclose={close} class="daisyui-modal">
   <div class="daisyui-modal-box">
-    <form
-      bind:this={formElement}
-      onsubmit={handleSubmit}
-      method="dialog"
-      action=""
-      id="change-password"
-    >
+    <form bind:this={formElement} onsubmit={handleSubmit} method="dialog" action="" id="change-password">
       <div class="daisyui-join daisyui-join-vertical w-full">
         <label for="new-password" class="daisyui-label font-bold">New Password</label>
-        <input
-          id="new-password"
-          type="password"
-          required
-          bind:value={newPassword}
-          class="daisyui-input"
-        />
+        <input id="new-password" type="password" required bind:value={newPassword} class="daisyui-input" />
       </div>
 
       <div class="daisyui-join daisyui-join-vertical w-full">
-        <label for="new-password-confirm" class="daisyui-label font-bold"
-          >Confirm New Password</label
-        >
+        <label for="new-password-confirm" class="daisyui-label font-bold">Confirm New Password</label>
         <input
           id="new-password-confirm"
           type="password"
@@ -79,9 +65,11 @@
         }}
         class="btn">Cancel</button
       >
-      <button type="submit" form="change-password" class="daisyui-btn daisyui-btn-primary"
-        >Submit</button
-      >
+      <button type="submit" form="change-password" class="daisyui-btn daisyui-btn-primary">Submit</button>
     </div>
   </div>
+
+  <form method="dialog" class="daisyui-modal-backdrop">
+    <button>close</button>
+  </form>
 </dialog>
