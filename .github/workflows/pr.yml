@@ -28,16 +28,16 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
+      - name: setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: 23
           cache: 'pnpm'
-
-      - name: setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: configure .env
         shell: bash
