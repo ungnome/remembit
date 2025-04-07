@@ -30,40 +30,49 @@
 
 <dialog bind:this={dialogElement} onclose={close} class="daisyui-modal">
   <div class="daisyui-modal-box">
-    <form bind:this={formElement} onsubmit={handleSubmit} method="dialog" action="" id="change-password">
-      <div class="daisyui-join daisyui-join-vertical w-full">
-        <label for="new-password" class="daisyui-label font-bold">New Password</label>
-        <input id="new-password" type="password" required bind:value={newPassword} class="daisyui-input" />
-      </div>
+    <h3 class="capticalize mb-6 text-lg font-bold">Change Password</h3>
 
-      <div class="daisyui-join daisyui-join-vertical w-full">
-        <label for="new-password-confirm" class="daisyui-label font-bold">Confirm New Password</label>
+    <form method="dialog" bind:this={formElement} onsubmit={handleSubmit} class="flex flex-col gap-6">
+      <label class="daisyui-floating-label flex">
+        <span>New Password</span>
         <input
-          id="new-password-confirm"
           type="password"
+          bind:value={newPassword}
           required
+          placeholder="New Password"
+          class="daisyui-input grow"
+        />
+      </label>
+
+      <label class="daisyui-floating-label flex">
+        <span>Confirm new password</span>
+        <input
+          type="password"
           bind:value={newPasswordConfirm}
-          class="daisyui-input"
-        />
-      </div>
-
-      <div class="daisyui-join daisyui-join-vertical w-full">
-        <label for="current-password" class="daisyui-label font-bold">Current Password</label>
-        <input
-          id="current-password"
-          type="password"
           required
-          bind:value={currentPassword}
-          class="daisyui-input"
+          placeholder="Confirm new password"
+          class="daisyui-input grow"
         />
-      </div>
+      </label>
+
+      <label class="daisyui-floating-label flex">
+        <span>Current password</span>
+        <input
+          type="password"
+          bind:value={currentPassword}
+          required
+          placeholder="Current password"
+          class="daisyui-input grow"
+        />
+      </label>
     </form>
+
     <div class="daisyui-modal-action justify-between">
       <button
         onclick={() => {
           dialogElement.close();
         }}
-        class="btn">Cancel</button
+        class="daisyui-btn">Cancel</button
       >
       <button type="submit" form="change-password" class="daisyui-btn daisyui-btn-primary">Submit</button>
     </div>
