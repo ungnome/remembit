@@ -52,6 +52,7 @@ jobs:
         shell: bash
         run: |
           pnpm install
+          pnpm run check
           pnpm run build
 
       - name: image metadata
