@@ -70,9 +70,11 @@
         }}
         class="daisyui-btn">Cancel</button
       >
-      <button type="submit" form="change-email" class="daisyui-btn daisyui-btn-primary"
-        >Submit</button
-      >
+      <button type="submit" form="change-email" class="daisyui-btn daisyui-btn-primary">Submit</button>
     </div>
   </div>
+
+  <form method="dialog" class="daisyui-modal-backdrop">
+    <button>close</button>
+  </form>
 </dialog>
