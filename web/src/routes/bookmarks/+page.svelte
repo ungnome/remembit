@@ -21,12 +21,10 @@
 
 <div class="mx-4 my-2 flex gap-4">
   <button class="daisyui-btn" onclick={handleAdd}>Add</button>
-  <input
-    type="search"
-    placeholder="Search"
-    class="daisyui-input grow"
-    bind:value={bookmarks.filter}
-  />
+  <label for="" class="daisyui-floating-label flex grow items-center">
+    <span>Search</span>
+    <input type="search" placeholder="Search" class="daisyui-input grow" bind:value={bookmarks.filter} />
+  </label>
 </div>
 
 <div class="h-[calc(100vh-8rem)] overflow-x-auto">
