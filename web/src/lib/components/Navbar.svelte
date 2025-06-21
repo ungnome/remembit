@@ -15,7 +15,7 @@
           role="button"
           class="daisyui-avatar daisyui-btn daisyui-btn-circle daisyui-btn-ghost"
         >
-          <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring-3 ring-offset-2">
+          <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
             <img alt="" src={user.gravatar} />
           </div>
         </div>
